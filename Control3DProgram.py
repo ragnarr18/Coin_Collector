@@ -47,8 +47,8 @@ class GraphicsProgram3D:
         self.D_key_down = False 
         self.G_key_down = False
         self.T_key_down = False
-        self.Right_key_down = False
-        self.Left_key_down = False
+        self.E_key_down = False
+        self.Q_key_down = False
 
         self.white_background = False
 
@@ -79,10 +79,10 @@ class GraphicsProgram3D:
         # if self.G_key_down: #zoom
         #     self.fov += 0.25 * delta_time
 
-        if self.Right_key_down:
+        if self.E_key_down:
             self.view_matrix.yaw(-pi * delta_time)
 
-        if self.Left_key_down:
+        if self.Q_key_down:
             self.view_matrix.yaw(pi * delta_time)
 
         if self.UP_key_down:
@@ -143,23 +143,6 @@ class GraphicsProgram3D:
         self.cube.draw(self.shader)
         self.model_matrix.pop_matrix()
 
-        # self.shader.set_solid_color(1.0, 0.0, 1.0)
-        # self.model_matrix.push_matrix()
-        # self.model_matrix.add_rotation_z(self.angle)
-        # self.cube.set_vertices(self.shader)
-        # for y in range(10):
-        #     for x in range(10):
-        #         for z in range(10):
-                    
-        #             self.model_matrix.push_matrix()
-        #             #add a translation
-        #             self.model_matrix.add_translation(-5.0 + x, -5.0 + y, 0.0 - z) #best practice, translate -> scale -> rotate
-        #             self.model_matrix.add_scale(0.8, 0.8, 0.8)         # if you mix the order, it affects differently
-        #             self.shader.set_model_matrix(self.model_matrix.matrix)
-        #             self.cube.draw(self.shader)
-        #             self.model_matrix.pop_matrix()
-        # self.model_matrix.pop_matrix()
-
         pygame.display.flip()
 
     def program_loop(self):
@@ -196,11 +179,11 @@ class GraphicsProgram3D:
                     if event.key == K_g:
                         self.G_key_down = True #zoom
 
-                    if event.key == K_RIGHT: #rotate right
-                        self.Right_key_down = True
+                    if event.key == K_e: #rotate right
+                        self.E_key_down = True
 
-                    if event.key == K_LEFT: #rotate right
-                        self.Left_key_down = True 
+                    if event.key == K_q: #rotate left
+                        self.Q_key_down = True 
 
                 elif event.type == pygame.KEYUP:
                     if event.key == K_UP:
@@ -224,11 +207,11 @@ class GraphicsProgram3D:
                     if event.key == K_g:
                         self.G_key_down = False
                     
-                    if event.key == K_RIGHT:
-                        self.Right_key_down = False
+                    if event.key == K_e:
+                        self.E_key_down = False
 
-                    if event.key == K_LEFT:
-                        self.Left_key_down = False  
+                    if event.key == K_q:
+                        self.Q_key_down = False  
             
             self.update()
             self.display()
