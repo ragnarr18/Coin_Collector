@@ -137,7 +137,7 @@ class GraphicsProgram3D:
         self.model_matrix.add_translation(1.0, 0.0, 0.0) #best practice, translate -> scale -> rotate
         #self.model_matrix.add_rotation_x(self.angle * 0.4)
         #self.model_matrix.add_rotation_y(self.angle * 0.2)
-        self.model_matrix.add_scale(1.0, 1.0, 1.0)         # if you mix the order, it affects differently
+        self.model_matrix.add_scale(0.8, 0.2, 0.2)         # if you mix the order, it affects differently
         #self.model_matrix.add_nothing() 
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)
