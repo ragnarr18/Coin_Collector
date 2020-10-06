@@ -1,14 +1,16 @@
-from math import *
+# from math import *
 
-import pygame
-from pygame.locals import *
+# import pygame
+# from pygame.locals import *
 
+# import sys
+# import time
+
+# from Shaders import *
 import sys
-import time
-
-from Shaders import *
+sys.path.append("project34\levels")
 from Matrices import *
-class base:
+class Base:
     def __init__(self, shader, model_matrix, map_size = 20.0, map_edge = 10.0):
         self.shader = shader
         self.model_matrix = model_matrix

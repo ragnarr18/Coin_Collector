@@ -10,8 +10,10 @@ import sys
 import time
 
 from Shaders import *
+from levels.Base import Base
+from levels.Level1 import Level
 from Matrices import *
-from levels.base import base
+# from levels.Level1 import *
 
 class GraphicsProgram3D:
     def __init__(self):
@@ -147,7 +149,10 @@ class GraphicsProgram3D:
         # self.shader.set_model_matrix(self.model_matrix.matrix)
         # self.cube.draw(self.shader)
         # self.model_matrix.pop_matrix()
-        base(self.shader,self.model_matrix).display()
+        # BaseLevel.base(self.shader,self.model_matrix).display()
+        # Base(self.shader,self.model_matrix).display()
+        # Level()
+        Level(self.shader, self.model_matrix).display()
         pygame.display.flip()
 
     def program_loop(self):
