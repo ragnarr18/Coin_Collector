@@ -24,7 +24,7 @@ class GraphicsProgram3D:
         self.model_matrix = ModelMatrix()
 
         self.view_matrix = ViewMatrix()
-        self.view_matrix.look(Point(3, 3, 3), Point(0, 0, 0), Vector(0, 0, 1))
+        self.view_matrix.look(Point(3, 3, 0), Point(0, 0, 0), Vector(0, 0, 1))
         # self.shader.set_view_matrix(self.view_matrix.get_matrix())
 
         self.projection_matrix = ProjectionMatrix()
@@ -60,18 +60,22 @@ class GraphicsProgram3D:
         #     angle -= (2 * pi)
 
         if self.W_key_down:
-            self.view_matrix.slide(0, 0, -1 * delta_time)
+            # self.view_matrix.slide(0, 0, -1 * delta_time)
+            self.view_matrix.move(0, -1 * delta_time)
 
         if self.S_key_down:
-            self.view_matrix.slide(0, 0, 1 * delta_time)
+            # self.view_matrix.slide(0, 0, 1 * delta_time)
+            self.view_matrix.move(0, 1 * delta_time)
         
         if self.A_key_down:
-            self.view_matrix.slide(-1 * delta_time, 0, 0)
+            # self.view_matrix.slide(-1 * delta_time, 0, 0)
             # self.view_matrix.roll(pi * delta_time)
+            self.view_matrix.move(-1 * delta_time, 0)
         
         if self.D_key_down:
-            self.view_matrix.slide(1 * delta_time, 0, 0)
+            # self.view_matrix.slide(1 * delta_time, 0, 0)
             # self.view_matrix.roll(- pi * delta_time)
+            self.view_matrix.move(1 * delta_time, 0)
         
         # if self.T_key_down: #zoom
         #     self.fov -= 0.25 * delta_time

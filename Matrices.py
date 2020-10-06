@@ -129,6 +129,9 @@ class ViewMatrix:
 
     def slide(self, del_u, del_v, del_n):
         self.eye += self.u * del_u + self.v * del_v + self.n * del_n
+    
+    def move(self, del_u, del_n):
+        self.eye += self.u * del_u + self.n * del_n
 
     def roll(self, angle):
         c = cos(angle)
@@ -150,6 +153,9 @@ class ViewMatrix:
         temp_n = self.n * c + self.u * s
         self.u =  self.n * -s + self.u * c
         self.n = temp_n
+
+        #but when turning in a fp game you should rotate all vectors about the base of the y-axis
+        
 
 
     def get_matrix(self):
