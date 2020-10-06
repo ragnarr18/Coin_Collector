@@ -11,6 +11,7 @@ import time
 
 from Shaders import *
 from Matrices import *
+from levels.base import base
 
 class GraphicsProgram3D:
     def __init__(self):
@@ -24,7 +25,7 @@ class GraphicsProgram3D:
         self.model_matrix = ModelMatrix()
 
         self.view_matrix = ViewMatrix()
-        self.view_matrix.look(Point(3, 3, 0), Point(0, 0, 0), Vector(0, 0, 1))
+        self.view_matrix.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
         # self.shader.set_view_matrix(self.view_matrix.get_matrix())
 
         self.projection_matrix = ProjectionMatrix()
@@ -115,38 +116,38 @@ class GraphicsProgram3D:
         self.cube.set_vertices(self.shader)
 
         # setting a purple color for the cube
-        self.shader.set_solid_color(2.0, 1.0, 0.0)
-        self.model_matrix.push_matrix()
-        #add a translation
-        self.model_matrix.add_translation(1.0, 1.0, 0.0)
-        self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+        # self.shader.set_solid_color(2.0, 1.0, 0.0)
+        # self.model_matrix.push_matrix()
+        # #add a translation
+        # self.model_matrix.add_translation(1.0, 1.0, 0.0)
+        # self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
+        # self.shader.set_model_matrix(self.model_matrix.matrix)
+        # self.cube.draw(self.shader)
+        # self.model_matrix.pop_matrix()
 
-        self.shader.set_solid_color(1.0, 0.0, 1.0)
-        self.model_matrix.push_matrix()
-        #add a translation
-        self.model_matrix.add_translation(3.0, 0.0, 0.0)
-        self.model_matrix.add_scale(0.2, 2.5, 1.5)
-        self.model_matrix.add_rotation_z(self.angle)    
-        self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+        # self.shader.set_solid_color(1.0, 0.0, 1.0)
+        # self.model_matrix.push_matrix()
+        # #add a translation
+        # self.model_matrix.add_translation(3.0, 0.0, 0.0)
+        # self.model_matrix.add_scale(0.2, 2.5, 1.5)
+        # self.model_matrix.add_rotation_z(self.angle)    
+        # self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
+        # self.shader.set_model_matrix(self.model_matrix.matrix)
+        # self.cube.draw(self.shader)
+        # self.model_matrix.pop_matrix()
 
-        self.shader.set_solid_color(1.5, 0.0, 1.0)
-        self.model_matrix.push_matrix()
-        # add a translation
-        self.model_matrix.add_translation(0.0, 0.0, -3.0) #best practice, translate -> scale -> rotate
-        self.model_matrix.add_rotation_x(self.angle * 0.4)
-        self.model_matrix.add_rotation_y(self.angle * 0.2)
-        self.model_matrix.add_scale(0.5, 0.5, 0.5)         # if you mix the order, it affects differently
-        self.model_matrix.add_nothing() 
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
-
+        # self.shader.set_solid_color(1.5, 0.0, 1.0)
+        # self.model_matrix.push_matrix()
+        # # add a translation
+        # self.model_matrix.add_translation(0.0, 0.0, -3.0) #best practice, translate -> scale -> rotate
+        # self.model_matrix.add_rotation_x(self.angle * 0.4)
+        # self.model_matrix.add_rotation_y(self.angle * 0.2)
+        # self.model_matrix.add_scale(0.5, 0.5, 0.5)         # if you mix the order, it affects differently
+        # self.model_matrix.add_nothing() 
+        # self.shader.set_model_matrix(self.model_matrix.matrix)
+        # self.cube.draw(self.shader)
+        # self.model_matrix.pop_matrix()
+        base(self.shader,self.model_matrix).display()
         pygame.display.flip()
 
     def program_loop(self):
