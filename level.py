@@ -23,7 +23,7 @@ class GraphicsProgram3D:
         self.model_matrix = ModelMatrix()
 
         self.view_matrix = ViewMatrix()
-        self.view_matrix.look(Point(3, 3, 3), Point(0, 0, 0), Vector(0, 1, 0))
+        self.view_matrix.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
         # self.shader.set_view_matrix(self.view_matrix.get_matrix())
 
         self.projection_matrix = ProjectionMatrix()
@@ -144,10 +144,10 @@ class GraphicsProgram3D:
         # Lítill kassi, kanski object sem maður stjornar
         self.model_matrix.push_matrix()
 
-        self.model_matrix.add_translation(0.0, 0.4, 0.0) #best practice, translate -> scale -> rotate
+        self.model_matrix.add_translation(0.0, 0.2, 0.0) #best practice, translate -> scale -> rotate
         #self.model_matrix.add_rotation_x(self.angle * 0.4)
         #self.model_matrix.add_rotation_y(self.angle * 0.2)
-        self.model_matrix.add_scale(0.2, 0.8, 0.2)         # if you mix the order, it affects differently
+        self.model_matrix.add_scale(0.2, 0.4, 0.2)         # if you mix the order, it affects differently
         #self.model_matrix.add_nothing() 
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)
