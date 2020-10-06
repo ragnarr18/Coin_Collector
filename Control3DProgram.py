@@ -48,6 +48,7 @@ class GraphicsProgram3D:
         self.G_key_down = False
         self.T_key_down = False
         self.Right_key_down = False
+        self.Left_key_down = False
 
         self.white_background = False
 
@@ -79,6 +80,9 @@ class GraphicsProgram3D:
         #     self.fov += 0.25 * delta_time
 
         if self.Right_key_down:
+            self.view_matrix.yaw(-pi * delta_time)
+
+        if self.Left_key_down:
             self.view_matrix.yaw(pi * delta_time)
 
         if self.UP_key_down:
@@ -193,7 +197,10 @@ class GraphicsProgram3D:
                         self.G_key_down = True #zoom
 
                     if event.key == K_RIGHT: #rotate right
-                        self.Right_key_down = True 
+                        self.Right_key_down = True
+
+                    if event.key == K_LEFT: #rotate right
+                        self.Left_key_down = True 
 
                 elif event.type == pygame.KEYUP:
                     if event.key == K_UP:
@@ -218,7 +225,10 @@ class GraphicsProgram3D:
                         self.G_key_down = False
                     
                     if event.key == K_RIGHT:
-                        self.Right_key_down = False 
+                        self.Right_key_down = False
+
+                    if event.key == K_LEFT:
+                        self.Left_key_down = False  
             
             self.update()
             self.display()

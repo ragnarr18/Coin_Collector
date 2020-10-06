@@ -115,9 +115,9 @@ class ModelMatrix:
 class ViewMatrix:
     def __init__(self):
         self.eye = Point(0, 0, 0)
-        self.u = Vector(1, 0, 0)
-        self.v = Vector(0, 1, 0)
-        self.n = Vector(0, 0, 1)
+        self.u = Vector(1, 0, 0) #x
+        self.v = Vector(0, 1, 0) #y
+        self.n = Vector(0, 0, 1) #z
 
     def look(self, eye, center, up):
         self.eye = eye
@@ -147,8 +147,8 @@ class ViewMatrix:
         c = cos(angle)
         s = sin(angle)
         #rotate n and u vector around the v vector
-        temp_n = self.n * c + self.v * s
-        self.v =  self.n * c + self.v * s
+        temp_n = self.n * c + self.u * s
+        self.u =  self.n * -s + self.u * c
         self.n = temp_n
 
 
