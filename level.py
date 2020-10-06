@@ -46,6 +46,8 @@ class GraphicsProgram3D:
         self.D_key_down = False 
         self.G_key_down = False
         self.T_key_down = False
+        self.E_key_down = False
+        self.Q_key_down = False
 
         self.white_background = False
 
@@ -63,20 +65,24 @@ class GraphicsProgram3D:
             self.view_matrix.slide(0, 0, 1 * delta_time)
         
         if self.A_key_down:
-            self.view_matrix.slide(-1 * delta_time, 0, 0)
+            self.view_matrix.yaw(pi * delta_time)
             # self.view_matrix.roll(pi * delta_time)
         
         if self.D_key_down:
-            self.view_matrix.slide(1 * delta_time, 0, 0)
+            self.view_matrix.yaw(-pi * delta_time)
             # self.view_matrix.roll(- pi * delta_time)
         
-        if self.T_key_down:
-            self.fov -= 0.25 * delta_time
+        # if self.T_key_down: #zoom
+        #     self.fov -= 0.25 * delta_time
         
-        if self.G_key_down:
-            self.fov += 0.25 * delta_time
+        # if self.G_key_down: #zoom
+        #     self.fov += 0.25 * delta_time
 
-        # self.view_matrix.slide(0, -1 * delta_time, 0)
+        if self.E_key_down:
+            self.view_matrix.slide(1 * delta_time, 0, 0)
+
+        if self.Q_key_down:
+            self.view_matrix.slide(-1 * delta_time, 0, 0)
 
         if self.UP_key_down:
             self.white_background = True
@@ -233,6 +239,12 @@ class GraphicsProgram3D:
                     if event.key == K_g:
                         self.G_key_down = True #zoom
 
+                    if event.key == K_e: #rotate right
+                        self.E_key_down = True
+
+                    if event.key == K_q: #rotate left
+                        self.Q_key_down = True 
+
 
                 elif event.type == pygame.KEYUP:
                     if event.key == K_UP:
@@ -255,6 +267,12 @@ class GraphicsProgram3D:
 
                     if event.key == K_g:
                         self.G_key_down = False
+
+                    if event.key == K_e:
+                        self.E_key_down = False
+
+                    if event.key == K_q:
+                        self.Q_key_down = False  
             
             self.update()
             self.display()
