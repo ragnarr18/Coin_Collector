@@ -62,10 +62,10 @@ class GraphicsProgram3D:
         #     angle -= (2 * pi)
 
         if self.W_key_down:
-            self.view_matrix.slide(0, 0, -1 * delta_time)
+            self.view_matrix.move(0, -1 * delta_time)
 
         if self.S_key_down:
-            self.view_matrix.slide(0, 0, 1 * delta_time)
+            self.view_matrix.move(0, 1 * delta_time)
         
         if self.A_key_down:
             self.view_matrix.yaw(pi * delta_time)
@@ -82,10 +82,10 @@ class GraphicsProgram3D:
         #     self.fov += 0.25 * delta_time
 
         if self.E_key_down:
-            self.view_matrix.slide(1 * delta_time, 0, 0)
+            self.view_matrix.move(1 * delta_time, 0)
 
         if self.Q_key_down:
-            self.view_matrix.slide(-1 * delta_time, 0, 0)
+            self.view_matrix.move(-1 * delta_time, 0)
 
         if self.UP_key_down:
             self.white_background = True
@@ -144,7 +144,7 @@ class GraphicsProgram3D:
         # Lítill kassi, kanski object sem maður stjornar
         self.model_matrix.push_matrix()
 
-        self.model_matrix.add_translation(0.0, 1.0, 0.0) #best practice, translate -> scale -> rotate
+        self.model_matrix.add_translation(0.0, 0.4, 0.0) #best practice, translate -> scale -> rotate
         #self.model_matrix.add_rotation_x(self.angle * 0.4)
         #self.model_matrix.add_rotation_y(self.angle * 0.2)
         self.model_matrix.add_scale(0.2, 0.8, 0.2)         # if you mix the order, it affects differently
