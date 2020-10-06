@@ -63,12 +63,12 @@ class GraphicsProgram3D:
             self.view_matrix.slide(0, 0, 1 * delta_time)
         
         if self.A_key_down:
-            # self.view_matrix.slide(-1 * delta_time, 0, 0)
-            self.view_matrix.roll(pi * delta_time)
+            self.view_matrix.slide(-1 * delta_time, 0, 0)
+            # self.view_matrix.roll(pi * delta_time)
         
         if self.D_key_down:
-            # self.view_matrix.slide(1 * delta_time, 0, 0)
-            self.view_matrix.roll(- pi * delta_time)
+            self.view_matrix.slide(1 * delta_time, 0, 0)
+            # self.view_matrix.roll(- pi * delta_time)
         
         if self.T_key_down:
             self.fov -= 0.25 * delta_time
