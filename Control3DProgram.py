@@ -13,6 +13,7 @@ from Shaders import *
 from levels.Base import Base
 from levels.Level1 import Level
 from Matrices import *
+from Character import *
 # from levels.Level1 import *
 
 class GraphicsProgram3D:
@@ -37,6 +38,10 @@ class GraphicsProgram3D:
         self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
 
         self.cube = Cube()
+        self.character = Character(self.shader, self.model_matrix)
+        self.camera = Character(self.shader, self.model_matrix, 0.1, 0.1, 0.1, Point(1, 0.0, 0.1))
+        self.camera.look(Point(1, 1.2, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+        self.character.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
 
         self.clock = pygame.time.Clock()
         self.clock.tick()
@@ -61,10 +66,12 @@ class GraphicsProgram3D:
         self.angle += pi * delta_time
         # if angle > 2 * pi:
         #     angle -= (2 * pi)
-
+        
+        
         if self.W_key_down:
             # self.view_matrix.slide(0, 0, -1 * delta_time)
             self.view_matrix.move(0, -1 * delta_time)
+            self.character.move(0, -1 * delta_time)
 
         if self.S_key_down:
             # self.view_matrix.slide(0, 0, 1 * delta_time)
@@ -153,6 +160,8 @@ class GraphicsProgram3D:
         # Base(self.shader,self.model_matrix).display()
         # Level()
         Level(self.shader, self.model_matrix).display()
+        self.character.display()
+        self.camera.display()
         pygame.display.flip()
 
     def program_loop(self):
