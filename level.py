@@ -9,7 +9,10 @@ import sys
 import time
 
 from Shaders import *
+from levels.Base import Base
+from levels.Level1 import Level
 from Matrices import *
+#from Character import *
 
 class GraphicsProgram3D:
     def __init__(self):
@@ -23,7 +26,7 @@ class GraphicsProgram3D:
         self.model_matrix = ModelMatrix()
 
         self.view_matrix = ViewMatrix()
-        self.view_matrix.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+        self.view_matrix.look(Point(0.5, 0.6, 0.5), Point(1, 0.6, 0.5), Vector(0, 1, 0))
         # self.shader.set_view_matrix(self.view_matrix.get_matrix())
 
         self.projection_matrix = ProjectionMatrix()
@@ -113,82 +116,82 @@ class GraphicsProgram3D:
         self.cube.set_vertices(self.shader)
 
 
-# Þetta er appelsínuguli kassinn
-        # setting a purple color for the cube
-        self.shader.set_solid_color(2.0, 1.0, 0.0)
-        self.model_matrix.push_matrix()
-        #add a translation
-        self.model_matrix.add_translation(0.0, -0.5, 0.0)
-        self.model_matrix.add_scale(self.map_size, 1.0, self.map_size)
-        #self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+# # Þetta er appelsínuguli kassinn
+#         # setting a purple color for the cube
+#         self.shader.set_solid_color(2.0, 1.0, 0.0)
+#         self.model_matrix.push_matrix()
+#         #add a translation
+#         self.model_matrix.add_translation(0.0, -0.5, 0.0)
+#         self.model_matrix.add_scale(self.map_size, 1.0, self.map_size)
+#         #self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
+#         self.shader.set_model_matrix(self.model_matrix.matrix)
+#         self.cube.draw(self.shader)
+#         self.model_matrix.pop_matrix()
 
 
-## Stóri spinning kassi
-        # self.shader.set_solid_color(1.0, 0.0, 1.0)
-        # self.model_matrix.push_matrix()
-        # #add a translation
-        # self.model_matrix.add_translation(3.0, 0.0, 0.0)
-        # self.model_matrix.add_scale(0.2, 2.5, 1.5)
-        # self.model_matrix.add_rotation_z(self.angle)    
-        # self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
-        # self.shader.set_model_matrix(self.model_matrix.matrix)
-        # self.cube.draw(self.shader)
-        # self.model_matrix.pop_matrix()
+# ## Stóri spinning kassi
+#         # self.shader.set_solid_color(1.0, 0.0, 1.0)
+#         # self.model_matrix.push_matrix()
+#         # #add a translation
+#         # self.model_matrix.add_translation(3.0, 0.0, 0.0)
+#         # self.model_matrix.add_scale(0.2, 2.5, 1.5)
+#         # self.model_matrix.add_rotation_z(self.angle)    
+#         # self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
+#         # self.shader.set_model_matrix(self.model_matrix.matrix)
+#         # self.cube.draw(self.shader)
+#         # self.model_matrix.pop_matrix()
 
-        self.shader.set_solid_color(1.5, 0.0, 1.0)
-        # add a translation
+#         self.shader.set_solid_color(1.5, 0.0, 1.0)
+#         # add a translation
 
-        # Lítill kassi, kanski object sem maður stjornar
-        self.model_matrix.push_matrix()
+#         # Lítill kassi, kanski object sem maður stjornar
+#         self.model_matrix.push_matrix()
 
-        self.model_matrix.add_translation(0.0, 0.2, 0.0) #best practice, translate -> scale -> rotate
-        #self.model_matrix.add_rotation_x(self.angle * 0.4)
-        #self.model_matrix.add_rotation_y(self.angle * 0.2)
-        self.model_matrix.add_scale(0.2, 0.4, 0.2)         # if you mix the order, it affects differently
-        #self.model_matrix.add_nothing() 
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+#         self.model_matrix.add_translation(0.0, 0.2, 0.0) #best practice, translate -> scale -> rotate
+#         #self.model_matrix.add_rotation_x(self.angle * 0.4)
+#         #self.model_matrix.add_rotation_y(self.angle * 0.2)
+#         self.model_matrix.add_scale(0.2, 0.4, 0.2)         # if you mix the order, it affects differently
+#         #self.model_matrix.add_nothing() 
+#         self.shader.set_model_matrix(self.model_matrix.matrix)
+#         self.cube.draw(self.shader)
+#         self.model_matrix.pop_matrix()
 
-        #bæta inn kössum á endana á mapið
-        #Kassi 1
-        self.model_matrix.push_matrix()
+#         #bæta inn kössum á endana á mapið
+#         #Kassi 1
+#         self.model_matrix.push_matrix()
 
-        self.model_matrix.add_translation(0.0, 0.5, self.map_edge - 0.5) #best practice, translate -> scale -> rotate
-        self.model_matrix.add_scale(self.map_size, 1.0, 1.0)       # if you mix the order, it affects differently
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+#         self.model_matrix.add_translation(0.0, 0.5, self.map_edge - 0.5) #best practice, translate -> scale -> rotate
+#         self.model_matrix.add_scale(self.map_size, 1.0, 1.0)       # if you mix the order, it affects differently
+#         self.shader.set_model_matrix(self.model_matrix.matrix)
+#         self.cube.draw(self.shader)
+#         self.model_matrix.pop_matrix()
 
-        #Kassi 2
-        self.model_matrix.push_matrix()
+#         #Kassi 2
+#         self.model_matrix.push_matrix()
 
-        self.model_matrix.add_translation(0.0, 0.5, -self.map_edge + 0.5) #best practice, translate -> scale -> rotate
-        self.model_matrix.add_scale(self.map_size, 1.0, 1.0)       # if you mix the order, it affects differently
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+#         self.model_matrix.add_translation(0.0, 0.5, -self.map_edge + 0.5) #best practice, translate -> scale -> rotate
+#         self.model_matrix.add_scale(self.map_size, 1.0, 1.0)       # if you mix the order, it affects differently
+#         self.shader.set_model_matrix(self.model_matrix.matrix)
+#         self.cube.draw(self.shader)
+#         self.model_matrix.pop_matrix()
 
-        #Kassi 3
-        self.model_matrix.push_matrix()
+#         #Kassi 3
+#         self.model_matrix.push_matrix()
 
-        self.model_matrix.add_translation(self.map_edge - 0.5, 0.5, 0.0) #best practice, translate -> scale -> rotate
-        self.model_matrix.add_scale(1.0, 1.0, self.map_size)       # if you mix the order, it affects differently
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+#         self.model_matrix.add_translation(self.map_edge - 0.5, 0.5, 0.0) #best practice, translate -> scale -> rotate
+#         self.model_matrix.add_scale(1.0, 1.0, self.map_size)       # if you mix the order, it affects differently
+#         self.shader.set_model_matrix(self.model_matrix.matrix)
+#         self.cube.draw(self.shader)
+#         self.model_matrix.pop_matrix()
 
-        #Kassi 4
-        self.model_matrix.push_matrix()
+#         #Kassi 4
+#         self.model_matrix.push_matrix()
 
-        self.model_matrix.add_translation(-self.map_edge + 0.5, 0.5, 0.0) #best practice, translate -> scale -> rotate
-        self.model_matrix.add_scale(1.0, 1.0, self.map_size)       # if you mix the order, it affects differently
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+#         self.model_matrix.add_translation(-self.map_edge + 0.5, 0.5, 0.0) #best practice, translate -> scale -> rotate
+#         self.model_matrix.add_scale(1.0, 1.0, self.map_size)       # if you mix the order, it affects differently
+#         self.shader.set_model_matrix(self.model_matrix.matrix)
+#         self.cube.draw(self.shader)
+#         self.model_matrix.pop_matrix()
 
         # self.shader.set_solid_color(1.0, 0.0, 1.0)
         # self.model_matrix.push_matrix()
@@ -206,7 +209,9 @@ class GraphicsProgram3D:
         #             self.cube.draw(self.shader)
         #             self.model_matrix.pop_matrix()
         # self.model_matrix.pop_matrix()
-
+        Level(self.shader, self.model_matrix).display()
+        #self.character.display()
+        #self.camera.display()
         pygame.display.flip()
 
     def program_loop(self):
