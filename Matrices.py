@@ -131,7 +131,10 @@ class ViewMatrix:
         self.eye += self.u * del_u + self.v * del_v + self.n * del_n
     
     def move(self, del_u, del_n):
+        old_y = self.eye.y
         self.eye += self.u * del_u + self.n * del_n
+        #making sure the y coordinate is the same as before
+        self.eye.y = old_y
 
     def roll(self, angle):
         c = cos(angle)
@@ -143,7 +146,12 @@ class ViewMatrix:
 
     #up down
     def pitch(self, angle):
-        pass
+        c = cos(angle)
+        s = sin(angle)
+        #rotate n and v vector around the u vector
+        temp_n = self.n * c + self.v * s
+        self.v =  self.n * -s + self.v * c
+        self.n = temp_n
 
     #left right
     def yaw(self, angle):

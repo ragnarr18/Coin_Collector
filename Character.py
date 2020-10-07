@@ -14,7 +14,7 @@ class Character:
         self.u = Vector(1, 0, 0) #x
         self.v = Vector(0, 1, 0) #y
         self.n = Vector(0, 0, 1) #z
-        self.camera_point = Point()
+        self.camera_point = Point(self.x /2, self.y -0.01, self.z)
         
         # self.camera_position
 
@@ -38,6 +38,9 @@ class Character:
         self.u.normalize()
         self.v = self.n.cross(self.u)
 
+    def update_camera(self):
+        self.camera_point = Point(self.x /2, self.y -0.01, self.z)
+        
     def move(self, del_u, del_n):
         self.position += self.u * del_u + self.n * del_n
 

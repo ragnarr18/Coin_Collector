@@ -28,7 +28,7 @@ class GraphicsProgram3D:
         self.model_matrix = ModelMatrix()
 
         self.view_matrix = ViewMatrix()
-        self.view_matrix.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+        # self.view_matrix.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
         # self.shader.set_view_matrix(self.view_matrix.get_matrix())
 
         self.projection_matrix = ProjectionMatrix()
@@ -39,16 +39,16 @@ class GraphicsProgram3D:
 
         self.cube = Cube()
         self.character = Character(self.shader, self.model_matrix)
-        self.camera = Character(self.shader, self.model_matrix, 0.1, 0.1, 0.1, Point(1, 0.0, 0.1))
-        self.camera.look(Point(1, 1.2, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+        # self.camera = Character(self.shader, self.model_matrix, 0.1, 0.1, 0.1, Point(1, 0.0, 0.1))
+        # self.camera.look(Point(1, 1.2, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
         self.character.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+        self.view_matrix.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+
 
         self.clock = pygame.time.Clock()
         self.clock.tick()
 
         self.angle = 0
-
-        self.UP_key_down = False
         self.W_key_down = False
         self.S_key_down = False
         self.A_key_down = False
@@ -57,6 +57,8 @@ class GraphicsProgram3D:
         self.T_key_down = False
         self.E_key_down = False
         self.Q_key_down = False
+        self.UP_key_down = False
+        self.DOWN_key_down = False
 
         self.white_background = False
 
@@ -76,16 +78,21 @@ class GraphicsProgram3D:
         if self.S_key_down:
             # self.view_matrix.slide(0, 0, 1 * delta_time)
             self.view_matrix.move(0, 1 * delta_time)
+            self.character.move(0, 1 * delta_time)
         
         if self.A_key_down:
             # self.view_matrix.slide(-1 * delta_time, 0, 0)
             # self.view_matrix.roll(pi * delta_time)
-            self.view_matrix.move(-1 * delta_time, 0)
+            # self.view_matrix.move(-1 * delta_time, 0)
+            self.view_matrix.yaw(pi * delta_time)
+            self.character.yaw(pi * delta_time)
         
         if self.D_key_down:
             # self.view_matrix.slide(1 * delta_time, 0, 0)
             # self.view_matrix.roll(- pi * delta_time)
-            self.view_matrix.move(1 * delta_time, 0)
+            # self.view_matrix.move(1 * delta_time, 0)
+            self.view_matrix.yaw(-pi * delta_time)
+            self.character.yaw(-pi * delta_time)
         
         # if self.T_key_down: #zoom
         #     self.fov -= 0.25 * delta_time
@@ -95,14 +102,22 @@ class GraphicsProgram3D:
 
         if self.E_key_down:
             self.view_matrix.yaw(-pi * delta_time)
+            
 
         if self.Q_key_down:
             self.view_matrix.yaw(pi * delta_time)
-
+            # self.character.yaw(pi * delta_time)
+        
         if self.UP_key_down:
-            self.white_background = True
-        else:
-            self.white_background = False
+            self.view_matrix.pitch(-pi * delta_time)
+        
+        if self.DOWN_key_down:
+            self.view_matrix.pitch(pi * delta_time)
+
+        # if self.UP_key_down:
+        #     self.white_background = True
+        # else:
+        #     self.white_background = False
     
 
     def display(self):
@@ -161,7 +176,7 @@ class GraphicsProgram3D:
         # Level()
         Level(self.shader, self.model_matrix).display()
         self.character.display()
-        self.camera.display()
+        # self.camera.display()
         pygame.display.flip()
 
     def program_loop(self):
@@ -176,9 +191,6 @@ class GraphicsProgram3D:
                     if event.key == K_ESCAPE:
                         print("Escaping!")
                         exiting = True
-                        
-                    if event.key == K_UP:
-                        self.UP_key_down = True
                     
                     if event.key == K_w:
                         self.W_key_down = True
@@ -204,10 +216,13 @@ class GraphicsProgram3D:
                     if event.key == K_q: #rotate left
                         self.Q_key_down = True 
 
+                    if event.key == K_UP: #rotate left
+                        self.UP_key_down = True 
+
+                    if event.key == K_DOWN: #rotate left
+                        self.DOWN_key_down = True 
+
                 elif event.type == pygame.KEYUP:
-                    if event.key == K_UP:
-                        self.UP_key_down = False
-                    
                     if event.key == K_w:
                         self.W_key_down = False
                     
@@ -230,7 +245,13 @@ class GraphicsProgram3D:
                         self.E_key_down = False
 
                     if event.key == K_q:
-                        self.Q_key_down = False  
+                        self.Q_key_down = False 
+                    
+                    if event.key == K_UP:
+                        self.UP_key_down = False
+                    
+                    if event.key == K_DOWN:
+                        self.DOWN_key_down = False
             
             self.update()
             self.display()
