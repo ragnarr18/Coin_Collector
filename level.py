@@ -75,20 +75,20 @@ class GraphicsProgram3D:
 
         if self.W_key_down:
             self.view_matrix.move(0, -1 * delta_time)
-            self.character.move(0, -1 * delta_time)
+            self.character.move(0, 1 * delta_time)
 
         if self.S_key_down:
             self.view_matrix.move(0, 1 * delta_time)
-            self.character.move(0, 1 * delta_time)
+            self.character.move(0, -1 * delta_time)
         
         if self.A_key_down:
             self.view_matrix.move(-1 * delta_time, 0)
-            self.character.move(-1 * delta_time, 0)
+            self.character.move(1 * delta_time, 0)
             # self.view_matrix.roll(pi * delta_time)
         
         if self.D_key_down:
             self.view_matrix.move(1 * delta_time, 0)
-            self.character.move(1 * delta_time, 0)
+            self.character.move(-1 * delta_time, 0)
             # self.view_matrix.roll(- pi * delta_time)
         
         # if self.T_key_down: #zoom
