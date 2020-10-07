@@ -12,7 +12,7 @@ from Shaders import *
 from levels.Base import Base
 from levels.Level1 import Level
 from Matrices import *
-#from Character import *
+from Character import *
 
 class GraphicsProgram3D:
     def __init__(self):
@@ -37,12 +37,19 @@ class GraphicsProgram3D:
 
         self.cube = Cube()
 
+        # Character
+        self.character = Character(self.shader, self.model_matrix)
+        self.character.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+
         self.clock = pygame.time.Clock()
         self.clock.tick()
 
         self.angle = 0
 
         self.UP_key_down = False
+        self.DOWN_key_down = False
+        self.LEFT_key_down = False
+        self.RIGHT_key_down = False
         self.W_key_down = False
         self.S_key_down = False
         self.A_key_down = False
@@ -68,16 +75,20 @@ class GraphicsProgram3D:
 
         if self.W_key_down:
             self.view_matrix.move(0, -1 * delta_time)
+            self.character.move(0, -1 * delta_time)
 
         if self.S_key_down:
             self.view_matrix.move(0, 1 * delta_time)
+            self.character.move(0, 1 * delta_time)
         
         if self.A_key_down:
-            self.view_matrix.yaw(pi * delta_time)
+            self.view_matrix.move(-1 * delta_time, 0)
+            self.character.move(-1 * delta_time, 0)
             # self.view_matrix.roll(pi * delta_time)
         
         if self.D_key_down:
-            self.view_matrix.yaw(-pi * delta_time)
+            self.view_matrix.move(1 * delta_time, 0)
+            self.character.move(1 * delta_time, 0)
             # self.view_matrix.roll(- pi * delta_time)
         
         # if self.T_key_down: #zoom
@@ -86,16 +97,17 @@ class GraphicsProgram3D:
         # if self.G_key_down: #zoom
         #     self.fov += 0.25 * delta_time
 
-        if self.E_key_down:
-            self.view_matrix.move(1 * delta_time, 0)
+        if self.RIGHT_key_down:
+            self.view_matrix.yaw(-pi * delta_time)
 
-        if self.Q_key_down:
-            self.view_matrix.move(-1 * delta_time, 0)
+        if self.LEFT_key_down:
+            self.view_matrix.yaw(pi * delta_time)
 
         if self.UP_key_down:
-            self.white_background = True
-        else:
-            self.white_background = False
+            self.view_matrix.pitch(-pi * delta_time)
+        
+        if self.DOWN_key_down:
+            self.view_matrix.pitch(pi * delta_time)
 
         if self.Y_key_down:
             self.view_matrix.look(Point(5.0, 7.0, 5.0), Point(5.0, 0.0, 5.0), Vector(1, 1, 0))
@@ -120,20 +132,7 @@ class GraphicsProgram3D:
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
 
-
-# # Þetta er appelsínuguli kassinn
-#         # setting a purple color for the cube
-#         self.shader.set_solid_color(2.0, 1.0, 0.0)
-#         self.model_matrix.push_matrix()
-#         #add a translation
-#         self.model_matrix.add_translation(0.0, -0.5, 0.0)
-#         self.model_matrix.add_scale(self.map_size, 1.0, self.map_size)
-#         #self.model_matrix.add_nothing()  ### --- ADD PROPER TRANSFORMATION OPERATIONS --- ###
-#         self.shader.set_model_matrix(self.model_matrix.matrix)
-#         self.cube.draw(self.shader)
-#         self.model_matrix.pop_matrix()
-
-
+# keep to se rotation
 # ## Stóri spinning kassi
 #         # self.shader.set_solid_color(1.0, 0.0, 1.0)
 #         # self.model_matrix.push_matrix()
@@ -146,76 +145,8 @@ class GraphicsProgram3D:
 #         # self.cube.draw(self.shader)
 #         # self.model_matrix.pop_matrix()
 
-#         self.shader.set_solid_color(1.5, 0.0, 1.0)
-#         # add a translation
-
-#         # Lítill kassi, kanski object sem maður stjornar
-#         self.model_matrix.push_matrix()
-
-#         self.model_matrix.add_translation(0.0, 0.2, 0.0) #best practice, translate -> scale -> rotate
-#         #self.model_matrix.add_rotation_x(self.angle * 0.4)
-#         #self.model_matrix.add_rotation_y(self.angle * 0.2)
-#         self.model_matrix.add_scale(0.2, 0.4, 0.2)         # if you mix the order, it affects differently
-#         #self.model_matrix.add_nothing() 
-#         self.shader.set_model_matrix(self.model_matrix.matrix)
-#         self.cube.draw(self.shader)
-#         self.model_matrix.pop_matrix()
-
-#         #bæta inn kössum á endana á mapið
-#         #Kassi 1
-#         self.model_matrix.push_matrix()
-
-#         self.model_matrix.add_translation(0.0, 0.5, self.map_edge - 0.5) #best practice, translate -> scale -> rotate
-#         self.model_matrix.add_scale(self.map_size, 1.0, 1.0)       # if you mix the order, it affects differently
-#         self.shader.set_model_matrix(self.model_matrix.matrix)
-#         self.cube.draw(self.shader)
-#         self.model_matrix.pop_matrix()
-
-#         #Kassi 2
-#         self.model_matrix.push_matrix()
-
-#         self.model_matrix.add_translation(0.0, 0.5, -self.map_edge + 0.5) #best practice, translate -> scale -> rotate
-#         self.model_matrix.add_scale(self.map_size, 1.0, 1.0)       # if you mix the order, it affects differently
-#         self.shader.set_model_matrix(self.model_matrix.matrix)
-#         self.cube.draw(self.shader)
-#         self.model_matrix.pop_matrix()
-
-#         #Kassi 3
-#         self.model_matrix.push_matrix()
-
-#         self.model_matrix.add_translation(self.map_edge - 0.5, 0.5, 0.0) #best practice, translate -> scale -> rotate
-#         self.model_matrix.add_scale(1.0, 1.0, self.map_size)       # if you mix the order, it affects differently
-#         self.shader.set_model_matrix(self.model_matrix.matrix)
-#         self.cube.draw(self.shader)
-#         self.model_matrix.pop_matrix()
-
-#         #Kassi 4
-#         self.model_matrix.push_matrix()
-
-#         self.model_matrix.add_translation(-self.map_edge + 0.5, 0.5, 0.0) #best practice, translate -> scale -> rotate
-#         self.model_matrix.add_scale(1.0, 1.0, self.map_size)       # if you mix the order, it affects differently
-#         self.shader.set_model_matrix(self.model_matrix.matrix)
-#         self.cube.draw(self.shader)
-#         self.model_matrix.pop_matrix()
-
-        # self.shader.set_solid_color(1.0, 0.0, 1.0)
-        # self.model_matrix.push_matrix()
-        # self.model_matrix.add_rotation_z(self.angle)
-        # self.cube.set_vertices(self.shader)
-        # for y in range(10):
-        #     for x in range(10):
-        #         for z in range(10):
-                    
-        #             self.model_matrix.push_matrix()
-        #             #add a translation
-        #             self.model_matrix.add_translation(-5.0 + x, -5.0 + y, 0.0 - z) #best practice, translate -> scale -> rotate
-        #             self.model_matrix.add_scale(0.8, 0.8, 0.8)         # if you mix the order, it affects differently
-        #             self.shader.set_model_matrix(self.model_matrix.matrix)
-        #             self.cube.draw(self.shader)
-        #             self.model_matrix.pop_matrix()
-        # self.model_matrix.pop_matrix()
         Level(self.shader, self.model_matrix).display()
-        #self.character.display()
+        self.character.display()
         #self.camera.display()
         pygame.display.flip()
 
@@ -232,8 +163,17 @@ class GraphicsProgram3D:
                         print("Escaping!")
                         exiting = True
                         
-                    if event.key == K_UP:
-                        self.UP_key_down = True
+                    if event.key == K_UP: #cam look up
+                        self.UP_key_down = True 
+
+                    if event.key == K_DOWN: #cam look down
+                        self.DOWN_key_down = True 
+                    
+                    if event.key == K_LEFT:
+                        self.LEFT_key_down = True
+                    
+                    if event.key == K_RIGHT:
+                        self.RIGHT_key_down = True
                     
                     if event.key == K_w:
                         self.W_key_down = True
@@ -266,6 +206,15 @@ class GraphicsProgram3D:
                 elif event.type == pygame.KEYUP:
                     if event.key == K_UP:
                         self.UP_key_down = False
+                    
+                    if event.key == K_DOWN:
+                        self.DOWN_key_down = False
+                    
+                    if event.key == K_LEFT:
+                        self.LEFT_key_down = False
+                    
+                    if event.key == K_RIGHT:
+                        self.RIGHT_key_down = False
                     
                     if event.key == K_w:
                         self.W_key_down = False
