@@ -9,7 +9,7 @@ class Level:
         self.map_edge = map_edge
         self.cube = Cube()
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5]
-        self.y_translations = [1.5, 1.5, 1.5, 0.5, 2.5, 3.5, 5.5, 5.5, 3.5, 5.5, 3.5, 4.5, 5.5]
+        self.z_translations = [1.5, 1.5, 1.5, 0.5, 2.5, 3.5, 5.5, 5.5, 3.5, 5.5, 3.5, 4.5, 5.5]
         self.num_of_translations = len(self.x_translations)
 
     def display(self):
@@ -28,7 +28,7 @@ class Level:
         for i in range(self.num_of_translations):
             self.model_matrix.push_matrix()
 
-            self.model_matrix.add_translation(self.x_translations[i], 0.5, self.y_translations[i]) #best practice, translate -> scale -> rotate
+            self.model_matrix.add_translation(self.x_translations[i], 0.5, self.z_translations[i]) #best practice, translate -> scale -> rotate
             self.model_matrix.add_scale(1.0, 1.0, 1.0)       # if you mix the order, it affects differently
             self.shader.set_model_matrix(self.model_matrix.matrix)
             self.cube.draw(self.shader)

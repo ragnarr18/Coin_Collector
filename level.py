@@ -52,6 +52,8 @@ class GraphicsProgram3D:
         self.E_key_down = False
         self.Q_key_down = False
 
+        self.Y_key_down = False #camera 
+
         self.white_background = False
 
         self.map_size = 20.0
@@ -94,6 +96,9 @@ class GraphicsProgram3D:
             self.white_background = True
         else:
             self.white_background = False
+
+        if self.Y_key_down:
+            self.view_matrix.look(Point(5.0, 7.0, 5.0), Point(5.0, 0.0, 5.0), Vector(1, 1, 0))
     
 
     def display(self):
@@ -253,6 +258,9 @@ class GraphicsProgram3D:
 
                     if event.key == K_q: #rotate left
                         self.Q_key_down = True 
+
+                    if event.key == K_y: #change cam view
+                        self.Y_key_down = True
 
 
                 elif event.type == pygame.KEYUP:
