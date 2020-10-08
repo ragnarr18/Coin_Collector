@@ -24,6 +24,7 @@ class Base:
         self.model_matrix.push_matrix()
   
         self.model_matrix.add_translation(5.0, -0.5, 5.0)
+        # self.model_matrix.add_translation(0.0, 0.5, 5.0)
         self.model_matrix.add_scale(self.map_edge, 1.0, self.map_edge)
        
         self.shader.set_model_matrix(self.model_matrix.matrix)
@@ -35,6 +36,7 @@ class Base:
         self.model_matrix.push_matrix()
 
         self.model_matrix.add_translation(5.0, 0.5, -0.5) #best practice, translate -> scale -> rotate
+        # self.model_matrix.add_translation(0.0, 0.5, -0.5)
         self.model_matrix.add_scale(self.map_edge, 1.0, 1.0)       # if you mix the order, it affects differently
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)
@@ -44,6 +46,7 @@ class Base:
         self.model_matrix.push_matrix()
 
         self.model_matrix.add_translation(-0.5, 0.5, 5.0) #best practice, translate -> scale -> rotate
+        # self.model_matrix.add_translation(-0.5, 0.5, 5.0)
         self.model_matrix.add_scale(1.0, 1.0, self.map_edge)       # if you mix the order, it affects differently
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)
@@ -53,6 +56,7 @@ class Base:
         self.model_matrix.push_matrix()
 
         self.model_matrix.add_translation(self.map_edge + 0.5, 0.5, 5.0) #best practice, translate -> scale -> rotate
+        # self.model_matrix.add_translation(0.0, 0.5, 5.0)
         self.model_matrix.add_scale(1.0, 1.0, self.map_edge)       # if you mix the order, it affects differently
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)
@@ -62,6 +66,7 @@ class Base:
         self.model_matrix.push_matrix()
 
         self.model_matrix.add_translation(5.0, 0.5, self.map_edge + 0.5) #best practice, translate -> scale -> rotate
+        # self.model_matrix.add_translation(0.0, 0.5, self.map_edge + 0.5)
         self.model_matrix.add_scale(self.map_edge, 1.0, 1.0)       # if you mix the order, it affects differently
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)

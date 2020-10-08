@@ -1,6 +1,6 @@
 from Matrices import *
 class Character:
-    def __init__(self, shader, model_matrix, x=0.1 , y=1.0 , z=0.1, color=Point(0.5, 0.9, 0.9)):
+    def __init__(self, shader, model_matrix, x=0.1 , y=0.5 , z=0.1, color=Point(0.5, 0.9, 0.9)):
         self.shader = shader
         self.model_matrix = model_matrix
         # self.map_size = map_size
@@ -10,11 +10,7 @@ class Character:
         self.x = x
         self.y = y
         self.z = z
-        self.position = Point(0,0,0)
-        self.u = Vector(1, 0, 0) #x
-        self.v = Vector(0, 1, 0) #y
-        self.n = Vector(0, 0, 1) #z
-        self.camera_point = Point(self.x /2, self.y -0.01, self.z)
+        self.orientation = Vector(0,1,0)
         
         # self.camera_position
 
@@ -28,7 +24,7 @@ class Character:
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)
         self.model_matrix.pop_matrix()
-        print("character position: " , self.position.x, ",",self.position.y, ",",self.position.z)
+        # print("character position: " , self.position.x, ",",self.position.y, ",",self.position.z)
     
     def look(self, eye, center, up):
         self.position = eye
@@ -36,13 +32,17 @@ class Character:
         self.n.normalize()
         self.u = up.cross(self.n)
         self.u.normalize()
-        self.v = self.n.cross(self.u)
+        self.v = self.n.cross(self.u)    
 
     def update_camera(self):
         self.camera_point = Point(self.x /2, self.y -0.01, self.z)
         
     def move(self, del_u, del_n):
+        old_y = self.position.y
         self.position += self.u * del_u + self.n * del_n
+        self.position.y = old_y
+        print(self.cube.position_array)
+        # self.position += self.orientation
 
     def yaw(self, angle):
         c = cos(angle)

@@ -132,6 +132,9 @@ class ViewMatrix:
     
     def move(self, del_u, del_n):
         old_y = self.eye.y
+        # print("this is the eye while moving: ", self.eye.x, self.eye.y, self.eye.z)
+        # print("this is the u and n: " , self.u.x, self.u.y, self.u.z , self.n.x,self.n.y,self.n.z)
+        
         self.eye += self.u * del_u + self.n * del_n
         #making sure the y coordinate is the same as before
         self.eye.y = old_y
@@ -148,23 +151,59 @@ class ViewMatrix:
     def pitch(self, angle):
         c = cos(angle)
         s = sin(angle)
+        
         #rotate n and v vector around the u vector
-        temp_n = self.n * c + self.v * s
-        self.v =  self.n * -s + self.v * c
-        self.n = temp_n
+        # if((self.v.x >= -0.4 and s > 0)  or (self.v.x < 0.8 and s < 0)):
+        if True:
+            temp_n = self.n * c + self.v * s
+            self.v =  self.n * -s + self.v * c
+            self.n = temp_n
+            print("V: " ,self.v.x,self.v.y,self.v.z)
+        # else:
+        #     print(self.v.x)
+        #     print(c, s)
+        #     print("too far")
+        # print("U: ", self.u.x,self.u.y,self.u.z)
+        # print("N: ",self.n.x,self.n.y,self.n.z)
 
     #left right
-    def yaw(self, angle):
-        c = cos(angle)
-        s = sin(angle)
-        #rotate n and u vector around the v vector
-        temp_n = self.n * c + self.u * s
-        self.u =  self.n * -s + self.u * c
-        self.n = temp_n
+    # def yaw(self, angle):
+    #     #try rotating all about the y axis
+    #     # print(angle)
+        
+    #     c = cos(angle)
+    #     s = sin(angle)
+    #     # print(c,s)
+    #     #rotate n and u vector around the v vector
+    #     # temp_n = self.n * c + self.u * s
+    #     temp_u = self.u * c + self.u * s 
+    #     self.v = Vector(0,1,0)
+    #     self.n = self.n * -s + self.n * c
+    #     # self.v = self.n * c + self.u * s
+    #     # self.u =  self.n * -s + self.u * c
+        
+    #     # self.v = self. * s
+    #     # self.n = temp_n
+    #     self.u = temp_u
+    #     # print(self.v.x, self.v.y, self.v.z)
+        
 
         #but when turning in a fp game you should rotate all vectors about the base of the y-axis
         
-
+    def yaw(self, angle):
+        c = cos(angle)
+        s = sin(angle)
+        #rotation matrix
+        #|cos(x)    0   sin(x)
+        #|  0       1   0
+        #|-sin(x)   0   cos(x)
+        self.u.x = self.u.x * c + self.u.z * s
+        self.u.z = self.u.x * -s + self.u.z* c
+        self.v.x = self.v.x * c + self.v.z * s
+        self.v.z = self.v.x * -s + self.v.z*  c
+        self.n.x = self.n.x *c + self.n.z * s
+        self.n.z = self.n.x * -s + self.n.z * c
+         
 
     def get_matrix(self):
         minusEye = Vector(-self.eye.x, -self.eye.y, -self.eye.z)

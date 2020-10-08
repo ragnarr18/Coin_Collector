@@ -41,8 +41,8 @@ class GraphicsProgram3D:
         self.character = Character(self.shader, self.model_matrix)
         # self.camera = Character(self.shader, self.model_matrix, 0.1, 0.1, 0.1, Point(1, 0.0, 0.1))
         # self.camera.look(Point(1, 1.2, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
-        self.character.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
-        self.view_matrix.look(Point(1, 0.6, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+        # self.character.look(Point(1, 0.5, 0), Point(0, 0.6, 0), Vector(0, 1, 0))
+        self.view_matrix.look(Point(1, 0.5, 0), Point(0, 0.5, 0), Vector(0, 1, 0))
 
 
         self.clock = pygame.time.Clock()
@@ -75,26 +75,26 @@ class GraphicsProgram3D:
         if self.W_key_down:
             # self.view_matrix.slide(0, 0, -1 * delta_time)
             self.view_matrix.move(0, -1 * delta_time)
-            self.character.move(0, -1 * delta_time)
+            # self.character.move(0, -1 * delta_time)
 
         if self.S_key_down:
             # self.view_matrix.slide(0, 0, 1 * delta_time)
             self.view_matrix.move(0, 1 * delta_time)
-            self.character.move(0, 1 * delta_time)
+            # self.character.move(0, 1 * delta_time)
         
         if self.A_key_down:
             # self.view_matrix.slide(-1 * delta_time, 0, 0)
             # self.view_matrix.roll(pi * delta_time)
             # self.view_matrix.move(-1 * delta_time, 0)
             self.view_matrix.yaw(pi * delta_time)
-            self.character.yaw(pi * delta_time)
+            # self.character.yaw(pi * delta_time)
         
         if self.D_key_down:
             # self.view_matrix.slide(1 * delta_time, 0, 0)
             # self.view_matrix.roll(- pi * delta_time)
             # self.view_matrix.move(1 * delta_time, 0)
             self.view_matrix.yaw(-pi * delta_time)
-            self.character.yaw(-pi * delta_time)
+            # self.character.yaw(-pi * delta_time)
         
         # if self.T_key_down: #zoom
         #     self.fov -= 0.25 * delta_time
@@ -111,10 +111,10 @@ class GraphicsProgram3D:
             # self.character.yaw(pi * delta_time)
         
         if self.UP_key_down:
-            self.view_matrix.pitch(-pi * delta_time)
+            self.view_matrix.pitch(-pi/2 * delta_time)
         
         if self.DOWN_key_down:
-            self.view_matrix.pitch(pi * delta_time)
+            self.view_matrix.pitch(pi/2 * delta_time)
 
         # if self.UP_key_down:
         #     self.white_background = True
@@ -180,7 +180,7 @@ class GraphicsProgram3D:
         # Base(self.shader,self.model_matrix).display()
         # Level()
         Level(self.shader, self.model_matrix).display()
-        self.character.display()
+        # self.character.display()
         # self.camera.display()
         pygame.display.flip()
 
