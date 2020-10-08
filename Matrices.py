@@ -131,13 +131,16 @@ class ViewMatrix:
         self.eye += self.u * del_u + self.v * del_v + self.n * del_n
     
     def move(self, del_u, del_n):
+        old_eye = self.eye
         old_y = self.eye.y
         # print("this is the eye while moving: ", self.eye.x, self.eye.y, self.eye.z)
         # print("this is the u and n: " , self.u.x, self.u.y, self.u.z , self.n.x,self.n.y,self.n.z)
         
         self.eye += self.u * del_u + self.n * del_n
         #making sure the y coordinate is the same as before
-        self.eye.y = old_y
+        # self.eye.y = old_y
+        difference = (self.eye - old_eye).__len__()
+        print(difference)
 
     def roll(self, angle):
         c = cos(angle)
@@ -163,32 +166,7 @@ class ViewMatrix:
         #     print(self.v.x)
         #     print(c, s)
         #     print("too far")
-        # print("U: ", self.u.x,self.u.y,self.u.z)
-        # print("N: ",self.n.x,self.n.y,self.n.z)
-
-    #left right
-    # def yaw(self, angle):
-    #     #try rotating all about the y axis
-    #     # print(angle)
         
-    #     c = cos(angle)
-    #     s = sin(angle)
-    #     # print(c,s)
-    #     #rotate n and u vector around the v vector
-    #     # temp_n = self.n * c + self.u * s
-    #     temp_u = self.u * c + self.u * s 
-    #     self.v = Vector(0,1,0)
-    #     self.n = self.n * -s + self.n * c
-    #     # self.v = self.n * c + self.u * s
-    #     # self.u =  self.n * -s + self.u * c
-        
-    #     # self.v = self. * s
-    #     # self.n = temp_n
-    #     self.u = temp_u
-    #     # print(self.v.x, self.v.y, self.v.z)
-        
-
-        #but when turning in a fp game you should rotate all vectors about the base of the y-axis
         
     def yaw(self, angle):
         c = cos(angle)
@@ -197,13 +175,26 @@ class ViewMatrix:
         #|cos(x)    0   sin(x)
         #|  0       1   0
         #|-sin(x)   0   cos(x)
-        self.u.x = self.u.x * c + self.u.z * s
+        # print("U: ", self.u.x,self.u.y,self.u.z)
+        # print("V: ", self.v.x,self.v.y,self.v.z)
+        # print("N: ",self.n.x,self.n.y,self.n.z)
+        temp_ux = self.u.x * c + self.u.z * s
+        # self.u.x = self.u.x * c + self.u.z * s
         self.u.z = self.u.x * -s + self.u.z* c
-        self.v.x = self.v.x * c + self.v.z * s
-        self.v.z = self.v.x * -s + self.v.z*  c
-        self.n.x = self.n.x *c + self.n.z * s
+        self.u.x = temp_ux
+
+        temp_vx = self.v.x * c + self.v.z * s
+        # self.v.x = self.v.x * c + self.v.z * s
+        self.v.z = self.v.x * -s + self.v.z* c
+        self.v.x = temp_vx
+
+        temp_nx = self.n.x *c + self.n.z * s
+        # self.n.x = self.n.x *c + self.n.z * s
         self.n.z = self.n.x * -s + self.n.z * c
-         
+        self.n.x = temp_nx
+        # print("U: ", self.u.x,self.u.y,self.u.z)
+        # print("V: ", self.v.x,self.v.y,self.v.z)
+        # print("N: ",self.n.x,self.n.y,self.n.z)
 
     def get_matrix(self):
         minusEye = Vector(-self.eye.x, -self.eye.y, -self.eye.z)

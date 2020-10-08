@@ -74,6 +74,7 @@ class GraphicsProgram3D:
         
         if self.W_key_down:
             # self.view_matrix.slide(0, 0, -1 * delta_time)
+            # print("movespeed: ", -1*delta_time)
             self.view_matrix.move(0, -1 * delta_time)
             # self.character.move(0, -1 * delta_time)
 
@@ -111,10 +112,10 @@ class GraphicsProgram3D:
             # self.character.yaw(pi * delta_time)
         
         if self.UP_key_down:
-            self.view_matrix.pitch(-pi/2 * delta_time)
+            self.view_matrix.pitch(-pi * delta_time)
         
         if self.DOWN_key_down:
-            self.view_matrix.pitch(pi/2 * delta_time)
+            self.view_matrix.pitch(pi * delta_time)
 
         # if self.UP_key_down:
         #     self.white_background = True
