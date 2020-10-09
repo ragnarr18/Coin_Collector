@@ -137,7 +137,7 @@ class ViewMatrix:
         self.eye.y = old_y
         #making sure the y coordinate is the same as before
         difference = (self.eye - old_eye).__len__()
-        print(difference)
+        # print(difference)
 
     def roll(self, angle):
         c = cos(angle)
@@ -158,7 +158,7 @@ class ViewMatrix:
             temp_n = self.n * c + self.v * s
             self.v =  self.n * -s + self.v * c
             self.n = temp_n
-            print("V: " ,self.v.x,self.v.y,self.v.z)
+            # print("V: " ,self.v.x,self.v.y,self.v.z)
         # else:
         #     print(self.v.x)
         #     print(c, s)
@@ -184,6 +184,11 @@ class ViewMatrix:
         temp_nx = self.n.x *c + self.n.z * s
         self.n.z = self.n.x * -s + self.n.z * c
         self.n.x = temp_nx
+        # print(self.eye)
+        # print(self.u)
+        # print(self.v)
+        # print(self.n)
+        
 
     def get_matrix(self):
         minusEye = Vector(-self.eye.x, -self.eye.y, -self.eye.z)

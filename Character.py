@@ -7,6 +7,10 @@ class Character:
         # self.map_edge = map_edge
         self.cube = Cube()
         self.color = color
+        self.position = Point(x, y, z)
+        self.u = Vector(1, 0, 0) #x
+        self.v = Vector(0, 1, 0) #y
+        self.n = Vector(0, 0, 1) #z
         self.x = x
         self.y = y
         self.z = z
@@ -41,7 +45,7 @@ class Character:
         old_y = self.position.y
         self.position += self.u * del_u + self.n * del_n
         self.position.y = old_y
-        print(self.cube.position_array)
+        # print(self.cube.position_array)
         # self.position += self.orientation
 
     def yaw(self, angle):
