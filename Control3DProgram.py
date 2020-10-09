@@ -15,6 +15,7 @@ from levels.Base import Base
 from levels.Level1 import Level
 from Matrices import *
 from Character import *
+from Mini_Map import *
 # from levels.Level1 import *
 
 class GraphicsProgram3D:
@@ -43,8 +44,8 @@ class GraphicsProgram3D:
         self.view_matrix.look(Point(0.5, 0.5, 0.5), Point(1, 0.5, 0), Vector(0, 1, 0))
         # self.character.look(Point(1, 0.5,0), Point(0, 0.5, 0), Vector(0, 1, 0))
         character_pos = Point(0.5, 0.5, 0.5) + self.view_matrix.n * 0.1
-        self.character = First_Person(character_pos)  #setting character directly behind the camera
-        # self.character.look(character_pos, Point(1, 0.5, 0), Vector(0, 1, 0))
+        self.character = First_Person(self.shader, self.view_matrix, self.model_matrix ,character_pos)  #setting character directly behind the camera
+        self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character)
         self.clock = pygame.time.Clock()
         self.clock.tick()
 
@@ -66,11 +67,7 @@ class GraphicsProgram3D:
     def update(self):
         delta_time = self.clock.tick() / 1000.0
 
-        self.angle += pi * delta_time
-        # if angle > 2 * pi:
-        #     angle -= (2 * pi)
-        
-        
+        # self.angle += pi * delta_time
         if self.W_key_down:
             # self.view_matrix.slide(0, 0, -1 * delta_time)
             # print("movespeed: ", -1*delta_time)
@@ -150,61 +147,38 @@ class GraphicsProgram3D:
         self.cube.set_vertices(self.shader)
 
         Level(self.shader, self.model_matrix).display()
-        # self.character.display()
         self.shader.set_solid_color(1.0, 0.0, 0.0)
-        self.model_matrix.push_matrix()
-        
-        # print(self.n)
-        # print(self.view_matrix.eye)
-        
-        # curr = Point(self.view_matrix.eye.x + self.view_matrix.n.x, self.view_matrix.eye.y , self.view_matrix.eye.z + self.view_matrix.n.x)
-        # print(self.view_matrix.n)
-        # curr = self.view_matrix.eye + ( self.view_matrix.u * -0.1) + (self.view_matrix.n* 0.1)
-        # curr = self.view_matrix.eye  + self.view_matrix.n * -0.2
-        # print(self.character.position)
-        self.model_matrix.add_translation(self.character.position.x, self.character.position.y, self.character.position.z)
-        # self.model_matrix.add_translation(0.0, 0.5, 5.0)
-        self.model_matrix.add_scale(0.1 , 0.5 , 0.1)
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
-        # self.camera.display()
+        self.character.display()
         if self.top_down:
-            # print(True)
-            glClearColor(0.0, 0.0, 0.0, 1.0)
-            # glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-            # glViewport(500, 0, 300, 300)
-            glClear(GL_DEPTH_BUFFER_BIT)
-            glViewport(500, 0, 300, 300)
+            self.Mini_Map.display()
+            # glClearColor(0.0, 0.0, 0.0, 1.0)
+            # glClear(GL_DEPTH_BUFFER_BIT) #clear depth_buffer_bit to fit the minimap
+            # glViewport(500, 0, 300, 300) #minimap size and position
+            # self.shader.set_view_matrix(self.view_matrix_top_down.get_matrix())
+            # self.view_matrix_top_down.look(Point(5.0, 7.0, 5.0), Point(5.0, 0.0, 5.0), Vector(1, 1, 0))
+            # self.shader.set_view_matrix(self.view_matrix_top_down.get_matrix())
+            # self.model_matrix.load_identity()
+            # self.cube.set_vertices(self.shader)
 
-            # self.projection_matrix.set_perspective(self.fov , 888/ 600, 0.05, 100000)
-            # self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
-
-            self.shader.set_view_matrix(self.view_matrix_top_down.get_matrix())
-            self.view_matrix_top_down.look(Point(5.0, 7.0, 5.0), Point(5.0, 0.0, 5.0), Vector(1, 1, 0))
-            self.shader.set_view_matrix(self.view_matrix_top_down.get_matrix())
-            self.model_matrix.load_identity()
-            self.cube.set_vertices(self.shader)
-
-            Level(self.shader, self.model_matrix).display()
-            # self.character.display()
-            self.shader.set_solid_color(1.0, 0.0, 0.0)
-            self.model_matrix.push_matrix()
+            # Level(self.shader, self.model_matrix).display()
             
-            # print(self.n)
-            # print(self.view_matrix.eye)
+            # self.shader.set_solid_color(1.0, 0.0, 0.0)
+            # self.model_matrix.push_matrix()
             
-            # curr = Point(self.view_matrix.eye.x + self.view_matrix.n.x, self.view_matrix.eye.y , self.view_matrix.eye.z + self.view_matrix.n.x)
-            # print(self.view_matrix.n)
-            # curr = self.view_matrix.eye + ( self.view_matrix.u * -0.1) + (self.view_matrix.n* 0.1)
-            # curr = self.view_matrix.eye  + self.view_matrix.n * -0.2
-            # print(self.character.position)
-            self.model_matrix.add_translation(self.character.position.x, self.character.position.y, self.character.position.z)
-            # self.model_matrix.add_translation(0.0, 0.5, 5.0)
-            self.model_matrix.add_scale(0.1 , 0.5 , 0.1)
-            self.shader.set_model_matrix(self.model_matrix.matrix)
-            self.cube.draw(self.shader)
-            self.model_matrix.pop_matrix()
+            # # print(self.n)
+            # # print(self.view_matrix.eye)
+            # # curr = Point(self.view_matrix.eye.x + self.view_matrix.n.x, self.view_matrix.eye.y , self.view_matrix.eye.z + self.view_matrix.n.x)
+            # # print(self.view_matrix.n)
+            # # curr = self.view_matrix.eye + ( self.view_matrix.u * -0.1) + (self.view_matrix.n* 0.1)
+            # # curr = self.view_matrix.eye  + self.view_matrix.n * -0.2
+            # # print(self.character.position)
+
+
+            # self.model_matrix.add_translation(self.character.position.x, self.character.position.y, self.character.position.z)
+            # self.model_matrix.add_scale(0.1 , 0.5 , 0.1)
+            # self.shader.set_model_matrix(self.model_matrix.matrix)
+            # self.cube.draw(self.shader)
+            # self.model_matrix.pop_matrix()
             
 
         ###
