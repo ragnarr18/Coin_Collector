@@ -31,11 +31,14 @@ class GraphicsProgram3D:
         self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
         self.cube = Cube()
         self.view_matrix.look(Point(0.5, 0.5, 0.5), Point(1, 0.5, 0), Vector(0, 1, 0))
-        character_pos = Point(0.5, 0.5, 0.5) + self.view_matrix.n * 0.1
+        # character_pos = Point(0.5, 0.5, 0.5) + self.view_matrix.n * 0.1
+        character_pos = Point(0.5, 0.5, 0.5)
         self.character = First_Person(self.shader, self.view_matrix, self.model_matrix ,character_pos)  #setting character directly behind the camera
         self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character)
         self.clock = pygame.time.Clock()
         self.clock.tick()
+
+        print(character_pos)
 
         self.W_key_down = False
         self.S_key_down = False
@@ -55,7 +58,7 @@ class GraphicsProgram3D:
         delta_time = self.clock.tick() / 1000.0
         if self.W_key_down:
             self.view_matrix.move(0, -2 * delta_time)
-
+        
         if self.S_key_down:
             self.view_matrix.move(0, 2 * delta_time)
         
@@ -79,7 +82,10 @@ class GraphicsProgram3D:
 
         if self.Y_key_down:
             self.top_down =  not self.top_down
-        self.character.position = self.view_matrix.eye + self.view_matrix.n * 0.1
+        self.character.position = self.view_matrix.eye + self.view_matrix.n * 0.00000000000000001
+        self.character.position.y = 0
+        print(self.character.position)
+        print(self.view_matrix.eye)
         
         # if self.T_key_down: #zoom
         #     self.fov -= 0.25 * delta_time
