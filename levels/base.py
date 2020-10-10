@@ -1,12 +1,3 @@
-# from math import *
-
-# import pygame
-# from pygame.locals import *
-
-# import sys
-# import time
-
-# from Shaders import *
 import sys
 sys.path.append("project34\levels")
 from Matrices import *

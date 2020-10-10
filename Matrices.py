@@ -148,17 +148,13 @@ class ViewMatrix:
     def pitch(self, angle):
         c = cos(angle)
         s = sin(angle)
-        #rotate n and v vector around the u vector
-        # if((self.v.x >= -0.4 and s > 0)  or (self.v.x < 0.8 and s < 0)):
-        #get angle between eye's v vector and y= (0,1,0)
-        current_angle = self.n.dot()
-
-        if True:
+        a_dot_b = self.n.dot(Vector(0,1,0))  #get angle between eye's v vector and y= (0,1,0)
+        len_a_len_b = self.n.__len__() * Vector(0,1,0).__len__()  #get angle between eye's v vector and y= (0,1,0)
+        current_angle = a_dot_b / len_a_len_b # current angle in radians
+        if (current_angle <= 0.75 and s > 0 )  or (current_angle >= -0.75 and s < 0) :#rotate n and v vector around the u vector
             temp_n = self.n * c + self.v * s
             self.v =  self.n * -s + self.v * c
             self.n = temp_n
-        print(self.n)
-
 
     def yaw(self, angle):
         c = cos(angle)
@@ -167,7 +163,6 @@ class ViewMatrix:
         #|cos(x)    0   sin(x)
         #|  0       1   0
         #|-sin(x)   0   cos(x)
-
         temp_ux = self.u.x * c + self.u.z * s
         self.u.z = self.u.x * -s + self.u.z* c
         self.u.x = temp_ux
