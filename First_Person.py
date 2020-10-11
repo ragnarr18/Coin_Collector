@@ -17,7 +17,16 @@ class First_Person:
         self.cube.draw(self.shader)
         self.model_matrix.pop_matrix()
     
-    def collide(self, key, view_matrix, delta_time ):
+    def collide(self, key, eye, u, n, delta_time ):
+        old_y = eye.y
         if key == "W":
+            eye += u * 0 + n * (-2* delta_time)
+            
+        if key == "S":
+            old_y = eye.y
+            eye += u * 0 + n * (2 * delta_time)
+
+        eye.y = old_y
+        temp_character_pos = eye + n * 0.00000000000000001
+        return temp_character_pos
             # view_matrix.move(0, -2 * delta_time)
-            pass

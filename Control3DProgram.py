@@ -93,11 +93,23 @@ class GraphicsProgram3D:
 
 
         if self.W_key_down:
-            v_matrix_copy = self.view_matrix
-            self.character.collide("W", v_matrix_copy, delta_time)
+            x = self.view_matrix.eye.x
+            y = self.view_matrix.eye.y
+            z = self.view_matrix.eye.z
+
+            eye_copy = Point(x,y,z)
+            temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
+            #check collision
             self.view_matrix.move(0, -2 * delta_time)
         
         if self.S_key_down:
+            x = self.view_matrix.eye.x
+            y = self.view_matrix.eye.y
+            z = self.view_matrix.eye.z
+
+            eye_copy = Point(x,y,z)
+            temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
+            #check collision
             self.view_matrix.move(0, 2 * delta_time)
         
         if self.A_key_down:
