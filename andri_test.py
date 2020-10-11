@@ -25,6 +25,7 @@ class GraphicsProgram3D:
         self.view_matrix = ViewMatrix()
         self.view_matrix_top_down = ViewMatrix()
         self.projection_matrix = ProjectionMatrix()
+        self.Collition_detection = Collition_detection()
         self.fov = pi / 2
         self.projection_matrix.set_perspective(self.fov , 888/ 600, 0.05, 100000)
         self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
@@ -77,8 +78,8 @@ class GraphicsProgram3D:
             eye_copy = Point(x,y,z)
             temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
             #check collition
-            self.x_collition = Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
-            self.z_collition = Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
+            self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
+            self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
             self.view_matrix.move(0, -2 * delta_time)
         
         if self.S_key_down:
@@ -89,8 +90,8 @@ class GraphicsProgram3D:
             eye_copy = Point(x,y,z)
             temp_character_pos = self.character.collide("S", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
             #check collition
-            self.x_collition = Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
-            self.z_collition = Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
+            self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
+            self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
             
             self.view_matrix.move(0, 2 * delta_time)
         
