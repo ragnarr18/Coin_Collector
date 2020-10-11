@@ -59,5 +59,5 @@ class Collition_detection:
 
             if self.temp_char_pos.z + self.cs > z1 and self.temp_char_pos.z + self.cs < z1 + 0.1 and self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x - self.cs < x2:
                 return True
-            if self.temp_char_pos.x - self.cs < z2 and self.temp_char_pos.z - self.cs > z2 - 0.1 and self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x - self.cs < x2:
+            if self.temp_char_pos.z - self.cs < z2 and self.temp_char_pos.z - self.cs > z2 - 0.1 and self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x - self.cs < x2:
                 return True
