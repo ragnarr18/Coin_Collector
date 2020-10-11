@@ -61,8 +61,8 @@ class GraphicsProgram3D:
     def update(self):
         delta_time = self.clock.tick() / 1000.0
         if self.W_key_down:
-            # v_matrix_copy = self.view_matrix
-            # self.character.collide("W", v_matrix_copy, delta_time)
+            v_matrix_copy = self.view_matrix
+            self.character.collide("W", v_matrix_copy, delta_time)
             self.view_matrix.move(0, -2 * delta_time)
         
         if self.S_key_down:
