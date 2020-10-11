@@ -48,7 +48,7 @@ class Slender:
             except ValueError:
                 print("Cant remove number that doesnt exist in list")
         num_of_options = len(directions)
-        n = randint(0, num_of_options)
+        n = randint(0, num_of_options) - 1
         print(directions)
         print(n)
         print(directions[n])

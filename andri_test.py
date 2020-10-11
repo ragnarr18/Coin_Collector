@@ -112,7 +112,7 @@ class GraphicsProgram3D:
             elif self.z_collition == True:
                 self.view_matrix.move_x(0, 2 * delta_time)
                 self.z_collition = False
-                elif self.z_collition == True and self.x_collition == True:
+            elif self.z_collition == True and self.x_collition == True:
                 self.x_collition = False
                 self.z_collition = False
             else:

@@ -143,7 +143,7 @@ class GraphicsProgram3D:
         if self.moveing == False:
             self.slender.where_to(self.x_translations, self.z_translations)
 
-        self.slender.where_to()
+        #self.slender.where_to()
             # print(self.character.position)
         # print(self.view_matrix.eye)
 
