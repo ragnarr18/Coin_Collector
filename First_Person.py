@@ -29,4 +29,3 @@ class First_Person:
         eye.y = old_y
         temp_character_pos = eye + n * 0.00000000000000001
         return temp_character_pos
-            # view_matrix.move(0, -2 * delta_time)
