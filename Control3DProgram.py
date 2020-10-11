@@ -1,6 +1,3 @@
-
-# from OpenGL.GL import *
-# from OpenGL.GLU import *
 from math import *
 
 import pygame

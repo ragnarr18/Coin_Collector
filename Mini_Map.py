@@ -19,10 +19,4 @@ class Mini_Map:
         self.cube.set_vertices(self.shader)
 
         Level(self.shader, self.model_matrix).display()
-        self.shader.set_solid_color(1.0, 0.0, 0.0)
-        self.model_matrix.push_matrix()
-        self.model_matrix.add_translation(self.character.position.x, self.character.position.y, self.character.position.z)
-        self.model_matrix.add_scale(0.1 , 0.5 , 0.1)
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix()
+        self.character.display()
