@@ -62,7 +62,7 @@ class GraphicsProgram3D:
 
     def update(self):
         delta_time = self.clock.tick() / 1000.0
-
+        self.angle += delta_time * pi 
 
             #### Collition detection
         if self.character.position.x - self.cs < 0:
@@ -166,13 +166,14 @@ class GraphicsProgram3D:
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
 
-        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display()
+        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(self.angle)
         # self.character.display()
         self.shader.set_solid_color(1.0, 0.0, 0.0)
         self.character.display()
         self.slender.display()
         if self.top_down:
             self.Mini_Map.display()
+        # print(self.character.position)
         pygame.display.flip()
        
 
