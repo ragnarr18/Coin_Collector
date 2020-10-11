@@ -88,8 +88,8 @@ class GraphicsProgram3D:
             self.top_down =  not self.top_down
         self.character.position = self.view_matrix.eye + self.view_matrix.n * 0.00000000000000001
         self.character.position.y = 0
-        print(self.character.position)
-        print(self.view_matrix.eye)
+        # print(self.character.position)
+        # print(self.view_matrix.eye)
         
         # if self.T_key_down: #zoom
         #     self.fov -= 0.25 * delta_time

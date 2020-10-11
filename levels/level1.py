@@ -11,6 +11,7 @@ class Level:
         self.x_translations = x_translations
         self.z_translations = z_translations
         self.num_of_translations = len(self.x_translations)
+        self.scale = [1.0, 1.0, 1.0]
 
     def display(self):
         Base(self.shader, self.model_matrix).display()        
