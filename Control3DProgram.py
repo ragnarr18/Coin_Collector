@@ -99,6 +99,7 @@ class GraphicsProgram3D:
 
             eye_copy = Point(x,y,z)
             temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
+            print(temp_character_pos)
             #check collision
             self.view_matrix.move(0, -2 * delta_time)
         

@@ -66,13 +66,32 @@ class GraphicsProgram3D:
     def update(self):
         delta_time = self.clock.tick() / 1000.0
         
-        self.x_collition = Collition_detection(self.x_translation, self.z_translation, self.character.position.x, self.character.position.z)
-        self.z_collition = Collition_detection(self.x_translation, self.z_translation, self.character.position.x, self.character.position.z)
+        #self.x_collition = Collition_detection.x_collition_detection(self.x_translation, self.z_translation, self.character.position.x, self.character.position.z)
+        #self.z_collition = Collition_detection.z_collition_detection(self.x_translation, self.z_translation, self.character.position.x, self.character.position.z)
 
         if self.W_key_down:
+            x = self.view_matrix.eye.x
+            y = self.view_matrix.eye.y
+            z = self.view_matrix.eye.z
+
+            eye_copy = Point(x,y,z)
+            temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
+            #check collition
+            self.x_collition = Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
+            self.z_collition = Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
             self.view_matrix.move(0, -2 * delta_time)
         
         if self.S_key_down:
+            x = self.view_matrix.eye.x
+            y = self.view_matrix.eye.y
+            z = self.view_matrix.eye.z
+
+            eye_copy = Point(x,y,z)
+            temp_character_pos = self.character.collide("S", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
+            #check collition
+            self.x_collition = Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
+            self.z_collition = Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
+            
             self.view_matrix.move(0, 2 * delta_time)
         
         if self.A_key_down:
