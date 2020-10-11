@@ -14,6 +14,7 @@ from Matrices import *
 from Character import *
 from Mini_Map import *
 from Slender import *
+from Collition_detection import *
 class GraphicsProgram3D:
     def __init__(self):
         pygame.init() 
@@ -24,6 +25,7 @@ class GraphicsProgram3D:
         self.view_matrix = ViewMatrix()
         self.view_matrix_top_down = ViewMatrix()
         self.projection_matrix = ProjectionMatrix()
+        self.Collition_detection = Collition_detection()
         self.fov = pi / 2
         self.projection_matrix.set_perspective(self.fov , 888/ 600, 0.05, 100000)
         self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
@@ -62,38 +64,7 @@ class GraphicsProgram3D:
 
     def update(self):
         delta_time = self.clock.tick() / 1000.0
-        self.angle += delta_time * pi 
-
-            #### Collition detection
-        if self.character.position.x - self.cs < 0:
-            print("hit edge")
-        if self.character.position.x + self.cs > 10:
-            print("hit edge")
-        if self.character.position.z - self.cs < 0:
-            print("hit edge")
-        if self.character.position.z + self.cs > 10:
-            print("hit edge")
-        
-        #### Map collitions
-        for i in range(self.num_of_translations):
-            # The 4 edges of a map box
-            x1 = self.x_translations[i] - 0.5
-            x2 = self.x_translations[i] + 0.5
-            z1 = self.z_translations[i] - 0.5
-            z2 = self.z_translations[i] + 0.5
-
-            if self.character.position.x + self.cs > x1 and self.character.position.x + self.cs < x1 + 0.1 and self.character.position.z + self.cs > z1 and self.character.position.z - self.cs < z2:
-                print(self.character.position.x, self.character.position.z)
-                print(x1, x2, z1, z2)
-            if self.character.position.x - self.cs < x2 and self.character.position.x - self.cs > x2 - 0.1 and self.character.position.z + self.cs > z1 and self.character.position.z - self.cs < z2:
-                print("boom")
-            if self.character.position.z + self.cs > z1 and self.character.position.z + self.cs < z1 + 0.1 and self.character.position.x + self.cs > x1 and self.character.position.x - self.cs < x2:
-                print("yo")
-            if self.character.position.z - self.cs < z2 and self.character.position.z - self.cs > z2 - 0.1 and self.character.position.x + self.cs > x1 and self.character.position.x - self.cs < x2:
-                print("colition bby")
-
-
-
+        self.angle += pi * delta_time
         if self.W_key_down:
             x = self.view_matrix.eye.x
             y = self.view_matrix.eye.y
@@ -101,9 +72,24 @@ class GraphicsProgram3D:
 
             eye_copy = Point(x,y,z)
             temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
-            print(temp_character_pos)
-            #check collision
-            self.view_matrix.move(0, -2 * delta_time)
+            #check collition
+            self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            #print(self.x_collition, self.z_collition)
+            if self.x_collition == True:
+                self.view_matrix.move_z(0, -2 * delta_time)
+                self.x_collition = False
+            
+            elif self.z_collition == True:
+                self.view_matrix.move_x(0, -2 * delta_time)
+                self.z_collition = False
+            
+            elif self.z_collition == True and self.x_collition == True:
+                self.x_collition = False
+                self.z_collition = False
+
+            else:
+                self.view_matrix.move(0, -2 * delta_time)
         
         if self.S_key_down:
             x = self.view_matrix.eye.x
@@ -111,9 +97,21 @@ class GraphicsProgram3D:
             z = self.view_matrix.eye.z
 
             eye_copy = Point(x,y,z)
-            temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
-            #check collision
-            self.view_matrix.move(0, 2 * delta_time)
+            temp_character_pos = self.character.collide("S", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
+            #check collition
+            self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            if self.x_collition == True:
+                self.view_matrix.move_z(0, 2 * delta_time)
+                self.x_collition = False
+            elif self.z_collition == True:
+                self.view_matrix.move_x(0, 2 * delta_time)
+                self.z_collition = False
+            elif self.z_collition == True and self.x_collition == True:
+                self.x_collition = False
+                self.z_collition = False
+            else:
+                self.view_matrix.move(0, 2 * delta_time)
         
         if self.A_key_down:
             self.view_matrix.yaw(pi * delta_time)
