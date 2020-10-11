@@ -41,7 +41,7 @@ class GraphicsProgram3D:
         self.num_of_translations = len(self.x_translations)
         
         #þannig að maður kemst ekki hálfa leið inní vegg
-        self.cs = 0.15
+        self.cs = 0.1
 
         self.angle = 0
         self.W_key_down = False
@@ -114,14 +114,21 @@ class GraphicsProgram3D:
             # The 4 edges of a map box
             x1 = self.x_translations[i] - 0.5
             x2 = self.x_translations[i] + 0.5
-            z1 = self.x_translations[i] - 0.5
-            z2 = self.x_translations[i] + 0.5
+            z1 = self.z_translations[i] - 0.5
+            z2 = self.z_translations[i] + 0.5
             #p1 = x1, z1;       p2 = x1, z2;        p3 = x2, z1;        p4 = x2, z2
             #if self.character.position.x
 
 
-            if self.character.position.x + self.cs > x1 and self.character.position.x + self.cs > x1 + 0.1 and self.character.position.z + self.cs > z1 and self.character.position.z - self.cs < z2:
-                pass
+            if self.character.position.x + self.cs > x1 and self.character.position.x + self.cs < x1 + 0.1 and self.character.position.z + self.cs > z1 and self.character.position.z - self.cs < z2:
+                print(self.character.position.x, self.character.position.z)
+                print(x1, x2, z1, z2)
+            if self.character.position.x - self.cs < x2 and self.character.position.x - self.cs > x2 - 0.1 and self.character.position.z + self.cs > z1 and self.character.position.z - self.cs < z2:
+                print("boom")
+            if self.character.position.z + self.cs > z1 and self.character.position.z + self.cs < z1 + 0.1 and self.character.position.x + self.cs > x1 and self.character.position.x - self.cs < x2:
+                print("yo")
+            if self.character.position.z - self.cs < z2 and self.character.position.z - self.cs > z2 - 0.1 and self.character.position.x + self.cs > x1 and self.character.position.x - self.cs < x2:
+                print("colition bby")
                 # print("hhhoooooly shiiiitttt")
 
         # if self.T_key_down: #zoom
