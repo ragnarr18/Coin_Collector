@@ -34,10 +34,13 @@ class GraphicsProgram3D:
         # character_pos = Point(0.5, 0.5, 0.5) + self.view_matrix.n * 0.1
         character_pos = Point(0.5, 0.5, 0.5)
         self.character = First_Person(self.shader, self.view_matrix, self.model_matrix ,character_pos)  #setting character directly behind the camera
-        self.slender = Slender(self.shader, self.view_matrix, self.model_matrix, Point(0.5, 0.5, 0.7))
+        self.slender = Slender(self.shader, self.view_matrix, self.model_matrix, Point(9.5, 0.5, 9.5))
         self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character, self.slender)
         self.clock = pygame.time.Clock()
         self.clock.tick()
+
+        #white box man stuff
+        self.moveing = False
 
         #Translations
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 9.5, 7.5, 9.5, 5.5, 6.5, 7.5, 7.5, 5.5, 7.5, 8.5, 9.5, 5.5, 7.5, 3.5, 5.5, 9.5, 1.5, 5.5, 7.5, 1.5, 2.5, 3.5, 7.5, 8.5, 9.5, 2.5, 5.5]
@@ -136,6 +139,11 @@ class GraphicsProgram3D:
         
         self.character.position = self.view_matrix.eye + self.view_matrix.n * 0.00000000000000001
         self.character.position.y = 0
+
+        if self.moveing == False:
+            self.slender.where_to(self.x_translations, self.z_translations)
+
+        self.slender.where_to()
             # print(self.character.position)
         # print(self.view_matrix.eye)
 
