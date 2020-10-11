@@ -86,9 +86,10 @@ class GraphicsProgram3D:
 
         if self.Y_key_down:
             self.top_down =  not self.top_down
+        
         self.character.position = self.view_matrix.eye + self.view_matrix.n * 0.00000000000000001
         self.character.position.y = 0
-        # print(self.character.position)
+            # print(self.character.position)
         # print(self.view_matrix.eye)
         
 
@@ -120,7 +121,8 @@ class GraphicsProgram3D:
 
 
             if self.character.position.x + self.cs > x1 and self.character.position.x + self.cs > x1 + 0.1 and self.character.position.z + self.cs > z1 and self.character.position.z - self.cs < z2:
-                print("hhhoooooly shiiiitttt")
+                pass
+                # print("hhhoooooly shiiiitttt")
 
         # if self.T_key_down: #zoom
         #     self.fov -= 0.25 * delta_time
