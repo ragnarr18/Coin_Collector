@@ -41,6 +41,7 @@ class GraphicsProgram3D:
 
         #white box man stuff
         self.moveing = False
+        self.direction = 0
 
         #Translations
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 9.5, 7.5, 9.5, 5.5, 6.5, 7.5, 7.5, 5.5, 7.5, 8.5, 9.5, 5.5, 7.5, 3.5, 5.5, 9.5, 1.5, 5.5, 7.5, 1.5, 2.5, 3.5, 7.5, 8.5, 9.5, 2.5, 5.5]
@@ -141,7 +142,13 @@ class GraphicsProgram3D:
         self.character.position.y = 0
 
         if self.moveing == False:
-            self.slender.where_to(self.x_translations, self.z_translations)
+            self.direction = self.slender.where_to(self.x_translations, self.z_translations)
+            print(self.slender.position)
+            self.moveing = True
+        
+        if self.moveing == True:
+            self.moveing = self.slender.move_to(self.direction)
+            
 
         #self.slender.where_to()
             # print(self.character.position)

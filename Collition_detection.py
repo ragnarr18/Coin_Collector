@@ -32,10 +32,10 @@ class Collition_detection:
             z2 = self.z_translations[i] + 0.5 # max z
             
             if self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x + self.cs < x1 + 0.1 and self.temp_char_pos.z + self.cs > z1 and self.temp_char_pos.z - self.cs < z2:
-                print("1")
+                #print("1")
                 return True
             if self.temp_char_pos.x - self.cs < x2 and self.temp_char_pos.x - self.cs > x2 - 0.1 and self.temp_char_pos.z + self.cs > z1 and self.temp_char_pos.z - self.cs < z2:
-                print("2")
+                #print("2")
                 return True
 
         
@@ -64,8 +64,8 @@ class Collition_detection:
             z2 = self.z_translations[i] + 0.5
             
             if self.temp_char_pos.z + self.cs > z1 and self.temp_char_pos.z + self.cs < z1 + 0.1 and self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x - self.cs < x2:
-                print("3")
+                #print("3")
                 return True
             if self.temp_char_pos.z - self.cs < z2 and self.temp_char_pos.z - self.cs > z2 - 0.1 and self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x - self.cs < x2:
-                print("4")
+                #print("4")
                 return True

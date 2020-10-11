@@ -1,5 +1,11 @@
 import random
 
+import pygame
+from pygame.locals import *
+
+import sys
+import time
+
 from Matrices import *
 
 class Slender:
@@ -11,6 +17,12 @@ class Slender:
         self.cube = Cube()
         self.color = color
         self.scale = [0.2, 1.4, 0.2]
+
+        self.clock = pygame.time.Clock()
+        self.clock.tick()
+
+        self.last_x = 0.0
+        self.last_z = 0.0
 
     def display(self):
         self.shader.set_solid_color(self.color.x, self.color.y, self.color.y)
@@ -25,6 +37,8 @@ class Slender:
         self.x_translations = x_translations
         self.z_translations = z_translations
         # 1 = +z ; 2 = -x ; 3 = -z ; 4 = +x
+        self.last_x = self.position.x
+        self.last_z = self.position.z
         directions = ['1','2', '3', '4']
         if self.position.x == 9.5: #3 áttir í boði 1,2,3
             directions.remove('4')
@@ -47,19 +61,42 @@ class Slender:
                     directions.remove('1')
             except ValueError:
                 print("Cant remove number that doesnt exist in list")
-        num_of_options = len(directions)
-        n = randint(0, num_of_options) - 1
-        print(directions)
+        
+        num_of_options = len(directions) - 1
+        n = randint(0, num_of_options)
         print(n)
-        print(directions[n])
+        #print(directions)
+        # print(directions)
+        # print(n)
+        # print(directions[n])
         return directions[n]
 
-        
-
-
-    def move_to(self, position):
+    def move_to(self, direction):
+        delta_time = self.clock.tick() / 1000.0
+        self.direction = direction
         #make him move to random positions to begin with
         #when he is close enough to the user, then he starts following the users movement
-        print(position)
+        #print(self.direction)
         #self.view_matrix.move(0, -2 * delta_time)
+        if self.direction == "1":
+            self.position.z += 2 * delta_time
+            if self.position.z >= self.last_z + 1:
+                self.position.z = self.last_z + 1
+                return False
+        if self.direction == "2":
+            self.position.x += -2 * delta_time
+            if self.position.x <= self.last_x - 1:
+                self.position.x = self.last_z - 1
+                return False
+        if self.direction == "3":
+            self.position.z += -2 * delta_time
+            if self.position.z <= self.last_z - 1:
+                self.position.z = self.last_z - 1
+                return False
+        if self.direction == "4":
+            self.position.x += 2 * delta_time
+            if self.position.x >= self.last_x + 1:
+                self.position.x = self.last_x + 1
+                return False
+        return True
     
