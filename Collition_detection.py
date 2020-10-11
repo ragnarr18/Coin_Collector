@@ -26,12 +26,11 @@ class Collition_detection:
         #### Map collitions
         for i in range(self.num_of_translations):
             # The 4 edges of a map box
-            x1 = self.x_translations[i] - 0.5
-            x2 = self.x_translations[i] + 0.5
-            z1 = self.z_translations[i] - 0.5
-            z2 = self.z_translations[i] + 0.5
-
-            #if self.temp_char_pos.x > self.curr_x_pos:
+            x1 = self.x_translations[i] - 0.5 # min x
+            x2 = self.x_translations[i] + 0.5 # max x
+            z1 = self.z_translations[i] - 0.5 # min z
+            z2 = self.z_translations[i] + 0.5 # max z
+            
             if self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x + self.cs < x1 + 0.1 and self.temp_char_pos.z + self.cs > z1 and self.temp_char_pos.z - self.cs < z2:
                 print("1")
                 return True

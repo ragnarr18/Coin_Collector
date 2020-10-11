@@ -13,6 +13,7 @@ from levels.Level1 import Level
 from Matrices import *
 from Character import *
 from Mini_Map import *
+from Slender import *
 class GraphicsProgram3D:
     def __init__(self):
         pygame.init() 
@@ -31,7 +32,8 @@ class GraphicsProgram3D:
         # character_pos = Point(0.5, 0.5, 0.5) + self.view_matrix.n * 0.1
         character_pos = Point(0.5, 0.5, 0.5)
         self.character = First_Person(self.shader, self.view_matrix, self.model_matrix ,character_pos)  #setting character directly behind the camera
-        self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character)
+        self.slender = Slender(self.shader, self.view_matrix, self.model_matrix, Point(0.5, 0.5, 0.7))
+        self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character, self.slender)
         self.clock = pygame.time.Clock()
         self.clock.tick()
 
@@ -168,6 +170,7 @@ class GraphicsProgram3D:
         # self.character.display()
         self.shader.set_solid_color(1.0, 0.0, 0.0)
         self.character.display()
+        self.slender.display()
         if self.top_down:
             self.Mini_Map.display()
         pygame.display.flip()
