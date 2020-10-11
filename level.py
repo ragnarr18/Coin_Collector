@@ -128,9 +128,13 @@ class GraphicsProgram3D:
         self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
 
         self.shader.set_view_matrix(self.view_matrix.get_matrix())
-
+ 
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
+
+
+        #minimap attempt
+        #pygame.draw.rect(self.image, (150,0,0), (0,0, Config.radarmapwidth, Config.radarmapheight),1)
 
 # keep to se rotation
 # ## Stóri spinning kassi

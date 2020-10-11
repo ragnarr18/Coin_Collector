@@ -2,15 +2,20 @@ from Matrices import *
 
 from levels.Base import Base
 class Level:
-    def __init__(self, shader, model_matrix, map_size = 20.0, map_edge = 10.0):
+    def __init__(self, shader, model_matrix, x_translations, z_translations, map_size = 20.0, map_edge = 10.0):
         self.shader = shader
         self.model_matrix = model_matrix
         self.map_size = map_size
         self.map_edge = map_edge
         self.cube = Cube()
+<<<<<<< Updated upstream
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 9.5, 7.5, 9.5, 5.5, 6.5, 7.5, 7.5, 5.5, 7.5, 8.5, 9.5, 5.5, 7.5, 3.5, 5.5, 9.5, 1.5, 5.5, 7.5, 1.5, 2.5, 3.5, 7.5, 8.5, 9.5, 2.5, 5.5]
         self.z_translations = [1.5, 1.5, 1.5, 0.5, 2.5, 3.5, 5.5, 5.5, 3.5, 5.5, 3.5, 4.5, 5.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 4.5, 5.5, 5.5, 5.5, 5.5, 1.5, 1.5, 6.5, 6.5, 6.5, 7.5, 7.5, 7.5, 8.5, 8.5, 8.5, 8.5, 8.5, 8.5, 9.5, 9.5]
         self.scale = [1.0,1.0,1.0]
+=======
+        self.x_translations = x_translations
+        self.z_translations = z_translations
+>>>>>>> Stashed changes
         self.num_of_translations = len(self.x_translations)
 
     def display(self):
