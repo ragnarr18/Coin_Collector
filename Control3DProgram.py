@@ -91,8 +91,40 @@ class GraphicsProgram3D:
         print(self.character.position)
         print(self.view_matrix.eye)
         
+
+        # if angle > 2 * pi:
+        #     angle -= (2 * pi)
+        #print(self.character.position.x, self.character.position.y, self.character.position.z)
+        
+        # Only detections for now
+        #### out of map
+        
+        if self.character.position.x - self.cs < 0:
+            print("hit edge")
+        if self.character.position.x + self.cs > 10:
+            print("hit edge")
+        if self.character.position.z - self.cs < 0:
+            print("hit edge")
+        if self.character.position.z + self.cs > 10:
+            print("hit edge")
+        
+        #### Map collitions
+        for i in range(self.num_of_translations):
+            # The 4 edges of a map box
+            x1 = self.x_translations[i] - 0.5
+            x2 = self.x_translations[i] + 0.5
+            z1 = self.x_translations[i] - 0.5
+            z2 = self.x_translations[i] + 0.5
+            #p1 = x1, z1;       p2 = x1, z2;        p3 = x2, z1;        p4 = x2, z2
+            #if self.character.position.x
+
+
+            if self.character.position.x + self.cs > x1 and self.character.position.x + self.cs > x1 + 0.1 and self.character.position.z + self.cs > z1 and self.character.position.z - self.cs < z2:
+                print("hhhoooooly shiiiitttt")
+
         # if self.T_key_down: #zoom
         #     self.fov -= 0.25 * delta_time
+
         
         # if self.G_key_down: #zoom
         #     self.fov += 0.25 * delta_time
