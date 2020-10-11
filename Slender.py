@@ -64,7 +64,7 @@ class Slender:
         
         num_of_options = len(directions) - 1
         n = randint(0, num_of_options)
-        print(n)
+        print(directions[n])
         #print(directions)
         # print(directions)
         # print(n)
@@ -86,7 +86,7 @@ class Slender:
         if self.direction == "2":
             self.position.x += -2 * delta_time
             if self.position.x <= self.last_x - 1:
-                self.position.x = self.last_z - 1
+                self.position.x = self.last_x - 1
                 return False
         if self.direction == "3":
             self.position.z += -2 * delta_time
