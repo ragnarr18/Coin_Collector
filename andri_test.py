@@ -80,7 +80,17 @@ class GraphicsProgram3D:
             #check collition
             self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
             self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
-            self.view_matrix.move(0, -2 * delta_time)
+            if self.x_collition == True:
+                self.view_matrix.move_z(0, -2 * delta_time)
+                self.x_collition = False
+            elif self.z_collition == True:
+                self.view_matrix.move_x(0, -2 * delta_time)
+                self.z_collition = False
+            elif self.z_collition == True and self.x_collition == True:
+                self.x_collition = False
+                self.z_collition = False
+            else:
+                self.view_matrix.move(0, -2 * delta_time)
         
         if self.S_key_down:
             x = self.view_matrix.eye.x
@@ -92,8 +102,14 @@ class GraphicsProgram3D:
             #check collition
             self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
             self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos)
-            
-            self.view_matrix.move(0, 2 * delta_time)
+            if self.x_collition == True:
+                self.view_matrix.move_z(0, 2 * delta_time)
+                self.x_collition = False
+            elif self.z_collition == True:
+                self.view_matrix.move_x(0, 2 * delta_time)
+                self.z_collition = False
+            else:
+                self.view_matrix.move(0, 2 * delta_time)
         
         if self.A_key_down:
             self.view_matrix.yaw(pi * delta_time)

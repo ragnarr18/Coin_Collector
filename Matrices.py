@@ -136,6 +136,22 @@ class ViewMatrix:
         self.eye += self.u * del_u + self.n * del_n
         self.eye.y = old_y
 
+    def move_x(self, del_u, del_n):
+        old_eye = self.eye
+        old_y = self.eye.y
+        old_z = self.eye.z
+        self.eye += self.u * del_u + self.n * del_n
+        self.eye.y = old_y
+        self.eye.z = old_z
+    
+    def move_z(self, del_u, del_n):
+        old_eye = self.eye
+        old_y = self.eye.y
+        old_x = self.eye.x
+        self.eye += self.u * del_u + self.n * del_n
+        self.eye.y = old_y
+        self.eye.x = old_x
+
     def roll(self, angle):
         c = cos(angle)
         s = sin(angle)
