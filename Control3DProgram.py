@@ -188,7 +188,7 @@ class GraphicsProgram3D:
 
         #setting diffuse, specular and shininess to all material
         self.shader.set_material_specular(0.2, 0.2, 0.2)
-        self.shader.set_material_shininess(25.0)
+        self.shader.set_material_shininess(10.0)
         self.shader.set_material_diffuse(0.5, 0.5, 0.5)
 
         Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(self.angle)
