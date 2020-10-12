@@ -12,7 +12,7 @@ class Base:
     def display(self):
         #floor
         # self.shader.set_solid_color(2.0, 1.0, 0.0)
-        self.shader.set_material_diffuse(2.0, 1.0, 0.0)
+        self.shader.set_material_diffuse(1.0, 1.0, 0.5)
         self.model_matrix.push_matrix()
   
         self.model_matrix.add_translation(5.0, -0.5, 5.0)
@@ -24,7 +24,7 @@ class Base:
         self.model_matrix.pop_matrix()
 
         # self.shader.set_solid_color(1.5, 0.0, 1.0)
-        self.shader.set_material_diffuse(1.5, 0.0, 1.0)
+        self.shader.set_material_diffuse(0.3, 0.3, 0.3)
         #Kassi 1
         self.model_matrix.push_matrix()
 

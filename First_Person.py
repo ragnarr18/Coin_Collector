@@ -10,6 +10,7 @@ class First_Person:
 
     #could maybe just put the model matrix as a parameter
     def display(self):
+        self.shader.set_material_diffuse(0.1, 0.4, 0.4)
         self.model_matrix.push_matrix()
         self.model_matrix.add_translation(self.position.x, self.position.y, self.position.z)
         self.model_matrix.add_scale(self.scale[0],self.scale[1], self.scale[2])

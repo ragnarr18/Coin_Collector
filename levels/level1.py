@@ -18,7 +18,7 @@ class Level:
     def display(self, angle):
         Base(self.shader, self.model_matrix).display()        
         # self.shader.set_solid_color(0.8, 0.2, 0.2)
-        self.shader.set_material_diffuse(0.8, 0.2, 0.2)
+        self.shader.set_material_diffuse(0.6, 0.4, 0.4)
         for i in range(self.num_of_translations):
             self.model_matrix.push_matrix()
 

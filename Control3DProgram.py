@@ -152,21 +152,6 @@ class GraphicsProgram3D:
             self.moveing = self.slender.move_to(self.direction)
             
 
-        #self.slender.where_to()
-            # print(self.character.position)
-        # print(self.view_matrix.eye)
-
-        # if angle > 2 * pi:
-        #     angle -= (2 * pi)
-        #print(self.character.position.x, self.character.position.y, self.character.position.z)
-    
-        # if self.T_key_down: #zoom
-        #     self.fov -= 0.25 * delta_time
-
-        
-        # if self.G_key_down: #zoom
-        #     self.fov += 0.25 * delta_time
-
     def display(self):
         glEnable(GL_DEPTH_TEST)  ### --- NEED THIS FOR NORMAL 3D BUT MANY EFFECTS BETTER WITH glDisable(GL_DEPTH_TEST) ... try it! --- ###
         glClearColor(0.0, 0.0, 0.0, 1.0)
@@ -181,38 +166,36 @@ class GraphicsProgram3D:
 
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
-        #setting light at point
-        
         self.model_matrix.push_matrix()
+
+        #setting light at eye
         self.shader.set_light_position(self.view_matrix.eye)
-        # self.shader.set_light_position1(Point(5.0, 5.0 , 20))
+        self.shader.set_light_diffuse(0.5,0.5, 0.5) # light that is of different color
+        self.shader.set_light_specular(0.5,0.5,0.5) # light that is of different color
+        
+        #setting light at position
+        self.shader.set_light_position1(Point(5.0, 10.0 , 20))
+        self.shader.set_light_diffuse1(0.1,0.1,0.1) # light that is of different color
+        self.shader.set_light_specular1(0.1,0.1,0.1) # light that is of different color
+        
+        #setting light at position
+        self.shader.set_light_position2(Point(10.0, 10.0 , -20))
+        self.shader.set_light_diffuse2(0.1,0.1,0.1) # light that is of different color
+        self.shader.set_light_specular2(0.1,0.1,0.1) # light that is of different color
 
-        self.shader.set_light_diffuse(1,1,1) # light that is of different color
-        self.shader.set_light_specular(1,1,1) # light that is of different color
-        self.model_matrix.pop_matrix()
-
-        # self.model_matrix.push_matrix()
-        self.shader.set_light_position1(Point(5.0, 5.0 , 20))
-        # self.shader.set_light_position1(Point(5.0, 5.0 , 20))
-
-        self.shader.set_light_diffuse1(0.5,0.5,0.5) # light that is of different color
-        self.shader.set_light_specular1(0,0,0) # light that is of different color
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
 
-        self.shader.set_material_specular(0.5, 0.5, 0.5)
+        #setting diffuse, specular and shininess to all material
+        self.shader.set_material_specular(0.2, 0.2, 0.2)
         self.shader.set_material_shininess(25.0)
         self.shader.set_material_diffuse(0.5, 0.5, 0.5)
 
         Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(self.angle)
-        # self.character.display()
-        # self.shader.set_solid_color(1.0, 0.0, 0.0)
-        # self.shader.set_material_diffuse(1.0, 0.0, 0.0)
         self.character.display()
         self.slender.display(self.angle)
         if self.top_down:
             self.Mini_Map.display(self.angle)
-        # print(self.character.position)
         pygame.display.flip()
        
 
