@@ -10,7 +10,8 @@ class Letter:
         self.scale = [0.1, 0.1, 0.1]
 
     def display(self):
-        self.shader.set_solid_color(self.color.x, self.color.y, self.color.y)
+        # self.shader.set_solid_color(self.color.x, self.color.y, self.color.y)
+        self.shader.set_material_diffuse(self.color.x, self.color.y, self.color.y)
         self.model_matrix.push_matrix()
         self.model_matrix.add_translation(self.position.x, self.position.y, self.position.z)
         self.model_matrix.add_scale(self.scale[0],self.scale[1], self.scale[2])

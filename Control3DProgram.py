@@ -170,7 +170,8 @@ class GraphicsProgram3D:
         glClearColor(0.0, 0.0, 0.0, 1.0)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)  ### --- YOU CAN ALSO CLEAR ONLY THE COLOR OR ONLY THE DEPTH --- ###
         glViewport(0, 0, 800, 600)
-
+        # self.shader.set_eye_position(self.view_matrix.eye) # set eye position to eye
+        
         self.projection_matrix.set_perspective(self.fov , 888/ 600, 0.05, 100000)
         self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
 
@@ -178,14 +179,28 @@ class GraphicsProgram3D:
 
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
+        #setting light at point
+        
+        self.shader.set_light_position(self.view_matrix.eye)
+        self.shader.set_light_position1(Point(5.0, 5.0 , 20))
+
+        self.shader.set_light_diffuse(0.8, 0.8, 0.8) # light that is of different color
+        self.shader.set_light_specular(0.5, 0.5, 0.5) # light that is of different color
+        self.model_matrix.load_identity()
+        self.cube.set_vertices(self.shader)
+
+        self.shader.set_material_specular(0.5, 0.5, 0.5)
+        self.shader.set_material_shininess(5.0)
+        self.shader.set_material_diffuse(0.5, 0.5, 0.5)
 
         Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(self.angle)
         # self.character.display()
-        self.shader.set_solid_color(1.0, 0.0, 0.0)
+        # self.shader.set_solid_color(1.0, 0.0, 0.0)
+        # self.shader.set_material_diffuse(1.0, 0.0, 0.0)
         self.character.display()
         self.slender.display()
         if self.top_down:
-            self.Mini_Map.display()
+            self.Mini_Map.display(self.angle)
         # print(self.character.position)
         pygame.display.flip()
        

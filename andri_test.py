@@ -171,7 +171,8 @@ class GraphicsProgram3D:
 
         Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display()
         # self.character.display()
-        self.shader.set_solid_color(1.0, 0.0, 0.0)
+        # self.shader.set_solid_color(1.0, 0.0, 0.0)
+        self.shader.set_material_diffuse(1.0, 0.0, 0.0)
         self.character.display()
         if self.top_down:
             self.Mini_Map.display()
