@@ -17,7 +17,18 @@ class Collition_detection:
         self.curr_z_pos = curr_z_pos
 
         n = self.temp_char_pos.x - self.curr_x_pos # er x positive eða negative
-        m = self.temp_char_pos.z - self.curr_z_pos
+        m = self.temp_char_pos.z - self.curr_z_pos # er z positive eða negative
+
+        if self.temp_char_pos.x - self.cs < 0:
+            return "1"
+        if self.temp_char_pos.x + self.cs > 10:
+            return "1"
+        
+        if self.temp_char_pos.z - self.cs < 0:
+            return "2"
+        if self.temp_char_pos.z + self.cs > 10:
+            return "2"
+
 
         for i in range(self.num_of_translations):
             x1 = self.x_translations[i] - 0.5 # min x
@@ -40,10 +51,13 @@ class Collition_detection:
                 if self.temp_char_pos.x - self.cs < x2 and self.temp_char_pos.x - self.cs > x2 - 0.1 and self.temp_char_pos.z + self.cs > z1 and self.temp_char_pos.z - self.cs < z2:
                     return "1"
             if n < 0 and m < 0:
+                if self.temp_char_pos.z - self.cs < z2 and self.temp_char_pos.z - self.cs > z2 - 0.1 and self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x - self.cs < x2:
+                    # broken part
+                    return "2"
                 if self.temp_char_pos.x - self.cs < x2 and self.temp_char_pos.x - self.cs > x2 - 0.1 and self.temp_char_pos.z + self.cs > z1 and self.temp_char_pos.z - self.cs < z2:
                     return "1"
-                if self.temp_char_pos.z - self.cs < z2 and self.temp_char_pos.z - self.cs > z2 - 0.1 and self.temp_char_pos.x + self.cs > x1 and self.temp_char_pos.x - self.cs < x2:
-                    return "2"
+                
+                    
                 
                 
                 

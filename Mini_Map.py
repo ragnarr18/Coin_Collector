@@ -10,6 +10,8 @@ class Mini_Map:
         self.cube = Cube()
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 9.5, 7.5, 9.5, 5.5, 6.5, 7.5, 7.5, 5.5, 7.5, 8.5, 9.5, 5.5, 7.5, 3.5, 5.5, 9.5, 1.5, 5.5, 7.5, 1.5, 2.5, 3.5, 7.5, 8.5, 9.5, 2.5, 5.5]
         self.z_translations = [1.5, 1.5, 1.5, 0.5, 2.5, 3.5, 5.5, 5.5, 3.5, 5.5, 3.5, 4.5, 5.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 4.5, 5.5, 5.5, 5.5, 5.5, 1.5, 1.5, 6.5, 6.5, 6.5, 7.5, 7.5, 7.5, 8.5, 8.5, 8.5, 8.5, 8.5, 8.5, 9.5, 9.5]
+        self.x_coin = [9.5, 1.5, 8.5, 0.5, 3.5]
+        self.z_coin = [3.5, 4.5, 7.5, 8.5, 9.5]
         self.num_of_translations = len(self.x_translations)
 
     def display(self, angle):
@@ -22,6 +24,6 @@ class Mini_Map:
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
 
-        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(angle)
+        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations, self.x_coin, self.z_coin).display(angle)
         self.character.display()
         self.slender.display(angle)

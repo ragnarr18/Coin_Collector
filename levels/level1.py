@@ -1,18 +1,21 @@
 from Matrices import *
-from Moving_Object import *
+
 from levels.Base import Base
 class Level:
-    def __init__(self, shader, model_matrix, x_translations, z_translations, map_size = 20.0, map_edge = 10.0):
+    def __init__(self, shader, model_matrix, x_translations, z_translations, x_coin, z_coin, map_size = 20.0, map_edge = 10.0):
         self.shader = shader
         self.model_matrix = model_matrix
         self.map_size = map_size
         self.map_edge = map_edge
         self.cube = Cube()
+        #Map
         self.x_translations = x_translations
         self.z_translations = z_translations
+        #Coins
+        self.x_coin = x_coin
+        self.z_coin = z_coin
         self.num_of_translations = len(self.x_translations)
         self.scale = [1.0, 1.0, 1.0]
-        self.moving_obj = Moving_Object()
         self.angle = 0
 
     def display(self, angle):
@@ -29,17 +32,18 @@ class Level:
             self.model_matrix.pop_matrix()
             i += 1
         
-        self.model_matrix.push_matrix()
-        self.model_matrix.add_translation(self.moving_obj.translations.x, self.moving_obj.translations.y, self.moving_obj.translations.z) #best practice, translate -> scale -> rotate
-        self.model_matrix.add_rotation_y(angle* 0.4)
-        self.model_matrix.add_rotation_z(angle* 0.2) 
-        self.model_matrix.add_scale(self.moving_obj.scale[0], self.moving_obj.scale[1], self.moving_obj.scale[2])       # if you mix the order, it affects differently
-        # self.moving_obj.rotate()
+        # Draw 5 coins
 
-        
-        
-        # self.model_matrix.add_rotation_z(angle* 0.4)
-        self.shader.set_model_matrix(self.model_matrix.matrix)
-        self.cube.draw(self.shader)
-        self.model_matrix.pop_matrix() 
-        #add tickets
+        self.shader.set_material_diffuse(1.0, 0.84, 0)
+        for i in range(5):
+            self.model_matrix.push_matrix()
+            
+            self.model_matrix.add_translation(self.x_coin[i], 0.5, self.z_coin[i])
+            self.model_matrix.add_rotation_y(angle* 0.4)
+            self.model_matrix.add_rotation_z(angle* 0.2)
+            self.model_matrix.add_scale(0.2, 0.2, 0.05)
+            self.shader.set_model_matrix(self.model_matrix.matrix)
+            self.cube.draw(self.shader)
+
+            self.model_matrix.pop_matrix()
+            i += 1

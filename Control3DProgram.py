@@ -47,7 +47,10 @@ class GraphicsProgram3D:
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 9.5, 7.5, 9.5, 5.5, 6.5, 7.5, 7.5, 5.5, 7.5, 8.5, 9.5, 5.5, 7.5, 3.5, 5.5, 9.5, 1.5, 5.5, 7.5, 1.5, 2.5, 3.5, 7.5, 8.5, 9.5, 2.5, 5.5]
         self.z_translations = [1.5, 1.5, 1.5, 0.5, 2.5, 3.5, 5.5, 5.5, 3.5, 5.5, 3.5, 4.5, 5.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 4.5, 5.5, 5.5, 5.5, 5.5, 1.5, 1.5, 6.5, 6.5, 6.5, 7.5, 7.5, 7.5, 8.5, 8.5, 8.5, 8.5, 8.5, 8.5, 9.5, 9.5]
         self.num_of_translations = len(self.x_translations)
-        
+
+        # Coin locations
+        self.x_coin = [9.5, 1.5, 8.5, 0.5, 3.5]
+        self.z_coin = [3.5, 4.5, 7.5, 8.5, 9.5]
         #þannig að maður kemst ekki hálfa leið inní vegg
         self.cs = 0.2
 
@@ -191,7 +194,7 @@ class GraphicsProgram3D:
         self.shader.set_material_shininess(25.0)
         self.shader.set_material_diffuse(0.5, 0.5, 0.5)
 
-        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(self.angle)
+        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations, self.x_coin, self.z_coin).display(self.angle)
         self.character.display()
         self.slender.display(self.angle)
         if self.top_down:
