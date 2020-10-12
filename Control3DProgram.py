@@ -181,16 +181,26 @@ class GraphicsProgram3D:
         self.cube.set_vertices(self.shader)
         #setting light at point
         
+        self.model_matrix.push_matrix()
         self.shader.set_light_position(self.view_matrix.eye)
-        self.shader.set_light_position1(Point(5.0, 5.0 , 20))
+        # self.shader.set_light_position1(Point(5.0, 5.0 , 20))
 
-        self.shader.set_light_diffuse(0.8, 0.8, 0.8) # light that is of different color
-        self.shader.set_light_specular(0.5, 0.5, 0.5) # light that is of different color
-        self.model_matrix.load_identity()
-        self.cube.set_vertices(self.shader)
+        self.shader.set_light_diffuse(1,1,1) # light that is of different color
+        self.shader.set_light_specular(1,1,1) # light that is of different color
+        self.model_matrix.pop_matrix()
+
+        # self.model_matrix.push_matrix()
+        # self.shader.set_light_position1(Point(5.0, 5.0 , 20))
+        # # self.shader.set_light_position1(Point(5.0, 5.0 , 20))
+
+        # self.shader.set_light_diffuse(0.5,0.5,0.5) # light that is of different color
+        # self.shader.set_light_specular(0,0,0) # light that is of different color
+        # self.model_matrix.pop_matrix()
+        # self.model_matrix.load_identity()
+        # self.cube.set_vertices(self.shader)
 
         self.shader.set_material_specular(0.5, 0.5, 0.5)
-        self.shader.set_material_shininess(5.0)
+        self.shader.set_material_shininess(25.0)
         self.shader.set_material_diffuse(0.5, 0.5, 0.5)
 
         Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(self.angle)
