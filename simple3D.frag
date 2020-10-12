@@ -2,11 +2,9 @@ varying vec4 v_normal;
 varying vec4 v_s;
 varying vec4 v_h;
 
-varying vec4 v_normal1;
 varying vec4 v_s1;
 varying vec4 v_h1;
 
-varying vec4 v_normal2;
 varying vec4 v_s2;
 varying vec4 v_h2;
 

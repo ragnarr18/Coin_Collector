@@ -15,6 +15,7 @@ from Character import *
 from Mini_Map import *
 from Slender import *
 from Collition_detection import *
+from threading import Timer
 class GraphicsProgram3D:
     def __init__(self):
         pygame.init() 
