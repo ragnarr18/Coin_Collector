@@ -4,7 +4,7 @@ class Moving_Object:
         self.position = position
         # self.shader = shader
         self.color = color
-        self.scale = [1.2,1,0.1]
+        self.scale = [0.2,0.2,0.05]
         # self.scale = [0.1, 1.0, 0.8]
 
         self.translations = Point(4.5, 0.5 ,2.5)

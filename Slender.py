@@ -16,7 +16,7 @@ class Slender:
         self.model_matrix = model_matrix
         self.cube = Cube()
         self.color = color
-        self.scale = [0.2, 1.4, 0.2]
+        self.scale = [0.2, 0.6, 0.2]
 
         self.clock = pygame.time.Clock()
         self.clock.tick()
@@ -24,8 +24,9 @@ class Slender:
         self.last_x = 0.0
         self.last_z = 0.0
 
-    def display(self):
+    def display(self, angle):
         # self.shader.set_solid_color(self.color.x, self.color.y, self.color.y)
+        # búkur
         self.shader.set_material_diffuse(self.color.x, self.color.y, self.color.y)
         self.model_matrix.push_matrix()
         self.model_matrix.add_translation(self.position.x, self.position.y, self.position.z)
@@ -33,6 +34,49 @@ class Slender:
         self.shader.set_model_matrix(self.model_matrix.matrix)
         self.cube.draw(self.shader)
         self.model_matrix.pop_matrix()
+        # fætur
+        self.model_matrix.push_matrix()
+        self.model_matrix.add_translation(self.position.x - 0.1, self.position.y - 0.4, self.position.z)
+        self.model_matrix.add_scale(0.1, 0.4, 0.1)
+        self.model_matrix.add_rotation_x(angle* 1)
+        self.shader.set_model_matrix(self.model_matrix.matrix)
+        self.cube.draw(self.shader)
+        self.model_matrix.pop_matrix()
+
+        self.model_matrix.push_matrix()
+        self.model_matrix.add_translation(self.position.x + 0.1, self.position.y - 0.4, self.position.z)
+        self.model_matrix.add_scale(0.1, 0.4, 0.1)
+        self.model_matrix.add_rotation_x(angle* 1)
+        self.shader.set_model_matrix(self.model_matrix.matrix)
+        self.cube.draw(self.shader)
+        self.model_matrix.pop_matrix()
+        # hendur
+        self.model_matrix.push_matrix()
+        self.model_matrix.add_translation(self.position.x - 0.2, self.position.y + 0.1, self.position.z)
+        self.model_matrix.add_scale(0.3, 0.1, 0.1)
+        self.model_matrix.add_rotation_y(angle* 1)
+        self.shader.set_model_matrix(self.model_matrix.matrix)
+        self.cube.draw(self.shader)
+        self.model_matrix.pop_matrix()
+
+        self.model_matrix.push_matrix()
+        self.model_matrix.add_translation(self.position.x + 0.2, self.position.y + 0.1, self.position.z)
+        self.model_matrix.add_scale(0.3, 0.1, 0.1)
+        self.model_matrix.add_rotation_y(angle* 1)
+        self.shader.set_model_matrix(self.model_matrix.matrix)
+        self.cube.draw(self.shader)
+        self.model_matrix.pop_matrix()
+
+        # haus
+        self.model_matrix.push_matrix()
+        self.model_matrix.add_translation(self.position.x, self.position.y + 0.5, self.position.z)
+        self.model_matrix.add_scale(0.2, 0.2, 0.2)
+        self.model_matrix.add_rotation_y(angle* 1)
+        self.model_matrix.add_rotation_z(angle* 1) 
+        self.shader.set_model_matrix(self.model_matrix.matrix)
+        self.cube.draw(self.shader)
+        self.model_matrix.pop_matrix()
+
     
     def where_to(self, x_translations, z_translations):
         self.x_translations = x_translations

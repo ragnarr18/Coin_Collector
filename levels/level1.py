@@ -32,6 +32,7 @@ class Level:
         self.model_matrix.push_matrix()
         self.model_matrix.add_translation(self.moving_obj.translations.x, self.moving_obj.translations.y, self.moving_obj.translations.z) #best practice, translate -> scale -> rotate
         self.model_matrix.add_rotation_y(angle* 0.4)
+        self.model_matrix.add_rotation_z(angle* 0.2) 
         self.model_matrix.add_scale(self.moving_obj.scale[0], self.moving_obj.scale[1], self.moving_obj.scale[2])       # if you mix the order, it affects differently
         # self.moving_obj.rotate()
 
