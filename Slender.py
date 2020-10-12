@@ -65,7 +65,7 @@ class Slender:
         
         num_of_options = len(directions) - 1
         n = randint(0, num_of_options)
-        print(directions[n])
+        #print(directions[n])
         #print(directions)
         # print(directions)
         # print(n)
