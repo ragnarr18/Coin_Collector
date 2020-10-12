@@ -24,4 +24,4 @@ class Mini_Map:
 
         Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(angle)
         self.character.display()
-        self.slender.display()
+        self.slender.display(angle)
