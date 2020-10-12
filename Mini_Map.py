@@ -1,7 +1,7 @@
 from Matrices import *
 from levels.Level1 import Level
 class Mini_Map:
-    def __init__(self, shader, view_matrix_top_down, model_matrix, character, slender):
+    def __init__(self, shader, view_matrix_top_down, model_matrix, character, slender, x_coin, z_coin, coins_remaining):
         self.character = character
         self.slender = slender
         self.shader = shader
@@ -10,9 +10,9 @@ class Mini_Map:
         self.cube = Cube()
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 9.5, 7.5, 9.5, 5.5, 6.5, 7.5, 7.5, 5.5, 7.5, 8.5, 9.5, 5.5, 7.5, 3.5, 5.5, 9.5, 1.5, 5.5, 7.5, 1.5, 2.5, 3.5, 7.5, 8.5, 9.5, 2.5, 5.5]
         self.z_translations = [1.5, 1.5, 1.5, 0.5, 2.5, 3.5, 5.5, 5.5, 3.5, 5.5, 3.5, 4.5, 5.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 4.5, 5.5, 5.5, 5.5, 5.5, 1.5, 1.5, 6.5, 6.5, 6.5, 7.5, 7.5, 7.5, 8.5, 8.5, 8.5, 8.5, 8.5, 8.5, 9.5, 9.5]
-        self.x_coin = [9.5, 1.5, 8.5, 0.5, 3.5]
-        self.z_coin = [3.5, 4.5, 7.5, 8.5, 9.5]
-        self.coins_remaining = 5
+        self.x_coin = x_coin
+        self.z_coin = z_coin
+        self.coins_remaining = coins_remaining
         self.num_of_translations = len(self.x_translations)
 
     def display(self, angle):

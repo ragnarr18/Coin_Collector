@@ -35,7 +35,7 @@ class GraphicsProgram3D:
         character_pos = Point(0.5, 0.5, 0.5)
         self.character = First_Person(self.shader, self.view_matrix, self.model_matrix ,character_pos)  #setting character directly behind the camera
         self.slender = Slender(self.shader, self.view_matrix, self.model_matrix, Point(9.5, 0.6, 9.5))
-        self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character, self.slender)
+        #self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character, self.slender)
         self.clock = pygame.time.Clock()
         self.clock.tick()
 
@@ -52,6 +52,8 @@ class GraphicsProgram3D:
         self.x_coin = [9.5, 1.5, 8.5, 1.5, 3.5, 2000] # last num er unreachable
         self.z_coin = [3.5, 4.5, 7.5, 9.5, 9.5, 2000] # last num er unreachable
         self.coins_remaining = 6 # 1 remaining == win, þarf að vera svona til að geta lesið rétt(annars kemur IndexError)
+
+        self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character, self.slender, self.x_coin, self.z_coin, self.coins_remaining)
 
         #þannig að maður kemst ekki hálfa leið inní vegg
         self.cs = 0.2
@@ -82,6 +84,7 @@ class GraphicsProgram3D:
                 self.coins_remaining -= 1
                 self.x_coin.remove(self.x_coin[i])
                 self.z_coin.remove(self.z_coin[i])
+                self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character, self.slender, self.x_coin, self.z_coin, self.coins_remaining)
             i += 1
 
         # Win check
@@ -89,6 +92,8 @@ class GraphicsProgram3D:
             print("Congratulations, you won!")
             pygame.quit()
             quit()
+        
+
 
         if self.W_key_down:
             x = self.view_matrix.eye.x
