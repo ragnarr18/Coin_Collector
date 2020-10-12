@@ -80,7 +80,7 @@ class GraphicsProgram3D:
 
         for i in range(self.coins_remaining - 1):
             if self.character.position.x < self.x_coin[i] + 0.5 and self.character.position.x > self.x_coin[i] - 0.5 and self.character.position.z < self.z_coin[i] + 0.5 and self.character.position.z > self.z_coin[i] - 0.5:
-                print( str(self.coins_remaining - 1) + " coins remaining!")
+                print( str(self.coins_remaining - 2) + " coins remaining!")
                 self.coins_remaining -= 1
                 self.x_coin.remove(self.x_coin[i])
                 self.z_coin.remove(self.z_coin[i])
@@ -154,12 +154,6 @@ class GraphicsProgram3D:
         if self.D_key_down:
             self.view_matrix.yaw(-pi * delta_time)
         
-        if self.E_key_down:
-            self.view_matrix.yaw(-pi * delta_time)
-            
-        if self.Q_key_down:
-            self.view_matrix.yaw(pi * delta_time)
-        
         if self.UP_key_down:
             self.view_matrix.pitch(-pi * delta_time)
         
@@ -174,7 +168,6 @@ class GraphicsProgram3D:
 
         if self.moveing == False:
             self.direction = self.slender.where_to(self.x_translations, self.z_translations)
-            #print(self.slender.position)
             self.moveing = True
         
         if self.moveing == True:
@@ -252,18 +245,6 @@ class GraphicsProgram3D:
 
                     if event.key == K_d:
                         self.D_key_down = True
-                    
-                    if event.key == K_t:
-                        self.T_key_down = True #zoom
-
-                    if event.key == K_g:
-                        self.G_key_down = True #zoom
-
-                    if event.key == K_e: #rotate right
-                        self.E_key_down = True
-
-                    if event.key == K_q: #rotate left
-                        self.Q_key_down = True 
 
                     if event.key == K_UP: #rotate left
                         self.UP_key_down = True 
@@ -286,18 +267,6 @@ class GraphicsProgram3D:
 
                     if event.key == K_d:
                         self.D_key_down = False
-
-                    if event.key == K_t:
-                        self.T_key_down = False
-
-                    if event.key == K_g:
-                        self.G_key_down = False
-                    
-                    if event.key == K_e:
-                        self.E_key_down = False
-
-                    if event.key == K_q:
-                        self.Q_key_down = False 
                     
                     if event.key == K_UP:
                         self.UP_key_down = False
@@ -318,4 +287,18 @@ class GraphicsProgram3D:
         self.program_loop()
 
 if __name__ == "__main__":
-    GraphicsProgram3D().start()
+    print("\nWelcome to the our Horror Maze!\n")
+
+    print("To survive you must find and collect all five coins.")
+    print("You have infinite time to complete the task but beware\nthere is a blind white man running aimlessly around the map and he wont hesatate to kill you if he finds you!")
+
+    i = input("If you are not familiar with the controlls, either read the README.txt or press i.\nIf you are ready to enter the maze press y or press any other key to cancel: ")
+    if (i == "i" or i == "I"):
+        print("CONTROLS:\n    W:              move forward\n    S:              move backwards\n    A:              look left\n    D:              look right\n    UP arrow:       look up\n    DOWN arrow:     look down\n    Y:              toggle minimap (hint:   Enable this feature if the game is to hard,\n                                            the minimap shows you where the coins are and where the man is.)\n")
+        i = input("Now you should be ready to take on the maze, press y to enter or any other key to cancel: ")
+
+    if (i == "y" or i == "Y"):
+        print("Good luck!\n")
+        GraphicsProgram3D().start()
+    else:
+        print("\nNot brave enough to take on the maze? Come back whenever you are ready.\n")
