@@ -13,8 +13,8 @@ from levels.Level1 import Level
 from Matrices import *
 from Character import *
 from Mini_Map import *
+from Slender import *
 from Collition_detection import *
-
 class GraphicsProgram3D:
     def __init__(self):
         pygame.init() 
@@ -34,9 +34,14 @@ class GraphicsProgram3D:
         # character_pos = Point(0.5, 0.5, 0.5) + self.view_matrix.n * 0.1
         character_pos = Point(0.5, 0.5, 0.5)
         self.character = First_Person(self.shader, self.view_matrix, self.model_matrix ,character_pos)  #setting character directly behind the camera
-        self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character)
+        self.slender = Slender(self.shader, self.view_matrix, self.model_matrix, Point(9.5, 0.5, 9.5))
+        self.Mini_Map = Mini_Map(self.shader,self.view_matrix_top_down,self.model_matrix, self.character, self.slender)
         self.clock = pygame.time.Clock()
         self.clock.tick()
+
+        #white box man stuff
+        self.moveing = False
+        self.direction = 0
 
         #Translations
         self.x_translations = [1.5, 2.5, 3.5, 5.5, 1.5, 1.5, 1.5, 0.5, 2.5, 2.5, 3.5, 3.5, 3.5, 9.5, 7.5, 9.5, 5.5, 6.5, 7.5, 7.5, 5.5, 7.5, 8.5, 9.5, 5.5, 7.5, 3.5, 5.5, 9.5, 1.5, 5.5, 7.5, 1.5, 2.5, 3.5, 7.5, 8.5, 9.5, 2.5, 5.5]
@@ -61,15 +66,9 @@ class GraphicsProgram3D:
         self.top_down = False
         self.dead = False #when mr whitestick kills user, turn schreen red and restart
 
-        self.x_collition = False
-        self.z_collition = False
-
     def update(self):
         delta_time = self.clock.tick() / 1000.0
-        
-        #self.x_collition = Collition_detection.x_collition_detection(self.x_translation, self.z_translation, self.character.position.x, self.character.position.z)
-        #self.z_collition = Collition_detection.z_collition_detection(self.x_translation, self.z_translation, self.character.position.x, self.character.position.z)
-
+        self.angle += pi * delta_time
         if self.W_key_down:
             x = self.view_matrix.eye.x
             y = self.view_matrix.eye.y
@@ -78,20 +77,21 @@ class GraphicsProgram3D:
             eye_copy = Point(x,y,z)
             temp_character_pos = self.character.collide("W", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
             #check collition
-            self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
-            self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            self.collition = self.Collition_detection.collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            #self.z_collition = self.Collition_detection.z_collition_detection(self.xd_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            
             #print(self.x_collition, self.z_collition)
-            if self.x_collition == True:
+            if self.collition == "1":
                 self.view_matrix.move_z(0, -2 * delta_time)
-                self.x_collition = False
+                self.collition = False
             
-            elif self.z_collition == True:
+            elif self.collition == "2":
                 self.view_matrix.move_x(0, -2 * delta_time)
-                self.z_collition = False
+                self.collition = False
             
-            elif self.z_collition == True and self.x_collition == True:
-                self.x_collition = False
-                self.z_collition = False
+            # elif self.z_collition == True and self.x_collition == True:
+            #     self.x_collition = False
+            #     self.z_collition = False
 
             else:
                 self.view_matrix.move(0, -2 * delta_time)
@@ -104,17 +104,17 @@ class GraphicsProgram3D:
             eye_copy = Point(x,y,z)
             temp_character_pos = self.character.collide("S", eye_copy, self.view_matrix.u, self.view_matrix.n, delta_time)
             #check collition
-            self.x_collition = self.Collition_detection.x_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
-            self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
-            if self.x_collition == True:
+            self.collition = self.Collition_detection.collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            #self.z_collition = self.Collition_detection.z_collition_detection(self.x_translations, self.z_translations, temp_character_pos, self.character.position.x, self.character.position.z)
+            if self.collition == True:
                 self.view_matrix.move_z(0, 2 * delta_time)
-                self.x_collition = False
-            elif self.z_collition == True:
+                self.collition = False
+            elif self.collition == True:
                 self.view_matrix.move_x(0, 2 * delta_time)
-                self.z_collition = False
-            elif self.z_collition == True and self.x_collition == True:
-                self.x_collition = False
-                self.z_collition = False
+                self.collition = False
+            elif self.collition == True and self.collition == True:
+                self.collition = False
+                self.collition = False
             else:
                 self.view_matrix.move(0, 2 * delta_time)
         
@@ -141,6 +141,17 @@ class GraphicsProgram3D:
         
         self.character.position = self.view_matrix.eye + self.view_matrix.n * 0.00000000000000001
         self.character.position.y = 0
+
+        if self.moveing == False:
+            self.direction = self.slender.where_to(self.x_translations, self.z_translations)
+            #print(self.slender.position)
+            self.moveing = True
+        
+        if self.moveing == True:
+            self.moveing = self.slender.move_to(self.direction)
+            
+
+        #self.slender.where_to()
             # print(self.character.position)
         # print(self.view_matrix.eye)
 
@@ -169,13 +180,15 @@ class GraphicsProgram3D:
         self.model_matrix.load_identity()
         self.cube.set_vertices(self.shader)
 
-        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display()
+        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations).display(self.angle)
         # self.character.display()
         # self.shader.set_solid_color(1.0, 0.0, 0.0)
         self.shader.set_material_diffuse(1.0, 0.0, 0.0)
         self.character.display()
+        self.slender.display()
         if self.top_down:
             self.Mini_Map.display()
+        # print(self.character.position)
         pygame.display.flip()
        
 
