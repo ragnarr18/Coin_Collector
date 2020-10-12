@@ -160,7 +160,6 @@ class GraphicsProgram3D:
         glClearColor(0.0, 0.0, 0.0, 1.0)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)  ### --- YOU CAN ALSO CLEAR ONLY THE COLOR OR ONLY THE DEPTH --- ###
         glViewport(0, 0, 800, 600)
-        # self.shader.set_eye_position(self.view_matrix.eye) # set eye position to eye
         
         self.projection_matrix.set_perspective(self.fov , 888/ 600, 0.05, 100000)
         self.shader.set_projection_matrix(self.projection_matrix.get_matrix())
@@ -172,6 +171,7 @@ class GraphicsProgram3D:
         self.model_matrix.push_matrix()
 
         #setting light at eye
+        self.shader.set_eye_position(self.view_matrix.eye)
         self.shader.set_light_position(self.view_matrix.eye)
         self.shader.set_light_diffuse(0.5,0.5, 0.5) # light that is of different color
         self.shader.set_light_specular(0.5,0.5,0.5) # light that is of different color
