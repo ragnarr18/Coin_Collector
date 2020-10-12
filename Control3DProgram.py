@@ -192,14 +192,13 @@ class GraphicsProgram3D:
         self.model_matrix.pop_matrix()
 
         # self.model_matrix.push_matrix()
+        self.shader.set_light_position1(Point(5.0, 5.0 , 20))
         # self.shader.set_light_position1(Point(5.0, 5.0 , 20))
-        # # self.shader.set_light_position1(Point(5.0, 5.0 , 20))
 
-        # self.shader.set_light_diffuse(0.5,0.5,0.5) # light that is of different color
-        # self.shader.set_light_specular(0,0,0) # light that is of different color
-        # self.model_matrix.pop_matrix()
-        # self.model_matrix.load_identity()
-        # self.cube.set_vertices(self.shader)
+        self.shader.set_light_diffuse1(0.5,0.5,0.5) # light that is of different color
+        self.shader.set_light_specular1(0,0,0) # light that is of different color
+        self.model_matrix.load_identity()
+        self.cube.set_vertices(self.shader)
 
         self.shader.set_material_specular(0.5, 0.5, 0.5)
         self.shader.set_material_shininess(25.0)

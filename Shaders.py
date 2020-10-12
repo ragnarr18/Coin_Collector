@@ -120,6 +120,10 @@ class Shader3D:
 
         self.lightDiffuseLoc = glGetUniformLocation(self.renderingProgramID, "u_light_diffuse")
         self.lightSpecularLoc = glGetUniformLocation(self.renderingProgramID, "u_light_specular")
+        self.lightDiffuseLoc1 = glGetUniformLocation(self.renderingProgramID, "u_light_diffuse1")
+        self.lightSpecularLoc1 = glGetUniformLocation(self.renderingProgramID, "u_light_specular1")
+        self.lightDiffuseLoc2 = glGetUniformLocation(self.renderingProgramID, "u_light_diffuse2")
+        self.lightSpecularLoc2 = glGetUniformLocation(self.renderingProgramID, "u_light_specular2")
 
         self.materialDiffuseLoc = glGetUniformLocation(self.renderingProgramID, "u_mat_diffuse")
         self.materialSpecularLoc = glGetUniformLocation(self.renderingProgramID, "u_mat_specular")
@@ -159,8 +163,20 @@ class Shader3D:
     def set_light_diffuse(self, red, green, blue):
         glUniform4f(self.lightDiffuseLoc, red, green, blue, 1.0)
     
+    def set_light_diffuse1(self, red, green, blue):
+        glUniform4f(self.lightDiffuseLoc1, red, green, blue, 1.0)
+    
+    def set_light_diffuse2(self, red, green, blue):
+        glUniform4f(self.lightDiffuseLoc2, red, green, blue, 1.0)
+    
     def set_light_specular(self, red, green, blue):
         glUniform4f(self.lightSpecularLoc, red, green, blue, 1.0)
+    
+    def set_light_specular1(self, red, green, blue):
+        glUniform4f(self.lightSpecularLoc1, red, green, blue, 1.0)
+
+    def set_light_specular2(self, red, green, blue):
+        glUniform4f(self.lightSpecularLoc2, red, green, blue, 1.0)
 
     def set_material_diffuse(self, red, green, blue):
         glUniform4f(self.materialDiffuseLoc, red, green, blue, 1.0)
