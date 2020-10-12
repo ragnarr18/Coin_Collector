@@ -49,8 +49,10 @@ class GraphicsProgram3D:
         self.num_of_translations = len(self.x_translations)
 
         # Coin locations
-        self.x_coin = [9.5, 1.5, 8.5, 0.5, 3.5]
-        self.z_coin = [3.5, 4.5, 7.5, 8.5, 9.5]
+        self.x_coin = [9.5, 1.5, 8.5, 1.5, 3.5, 2000] # last num er unreachable
+        self.z_coin = [3.5, 4.5, 7.5, 9.5, 9.5, 2000] # last num er unreachable
+        self.coins_remaining = 6 # 1 remaining == win, þarf að vera svona til að geta lesið rétt(annars kemur IndexError)
+
         #þannig að maður kemst ekki hálfa leið inní vegg
         self.cs = 0.2
 
@@ -72,6 +74,21 @@ class GraphicsProgram3D:
     def update(self):
         delta_time = self.clock.tick() / 1000.0
         self.angle += pi * delta_time
+
+
+        for i in range(self.coins_remaining - 1):
+            if self.character.position.x < self.x_coin[i] + 0.5 and self.character.position.x > self.x_coin[i] - 0.5 and self.character.position.z < self.z_coin[i] + 0.5 and self.character.position.z > self.z_coin[i] - 0.5:
+                print("gotit")
+                self.coins_remaining -= 1
+                self.x_coin.remove(self.x_coin[i])
+                self.z_coin.remove(self.z_coin[i])
+            i += 1
+
+        # Win check
+        if self.coins_remaining == 1:
+            print("Congratulations, you won!")
+            pygame.quit()
+            quit()
 
         if self.W_key_down:
             x = self.view_matrix.eye.x
@@ -148,7 +165,7 @@ class GraphicsProgram3D:
 
         if self.moveing == False:
             self.direction = self.slender.where_to(self.x_translations, self.z_translations)
-            print(self.slender.position)
+            #print(self.slender.position)
             self.moveing = True
         
         if self.moveing == True:
@@ -194,7 +211,7 @@ class GraphicsProgram3D:
         self.shader.set_material_shininess(10.0)
         self.shader.set_material_diffuse(0.5, 0.5, 0.5)
 
-        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations, self.x_coin, self.z_coin).display(self.angle)
+        Level(self.shader, self.model_matrix, self.x_translations, self.z_translations, self.x_coin, self.z_coin, self.coins_remaining).display(self.angle)
         self.character.display()
         self.slender.display(self.angle)
         if self.top_down:

@@ -2,7 +2,7 @@ from Matrices import *
 
 from levels.Base import Base
 class Level:
-    def __init__(self, shader, model_matrix, x_translations, z_translations, x_coin, z_coin, map_size = 20.0, map_edge = 10.0):
+    def __init__(self, shader, model_matrix, x_translations, z_translations, x_coin, z_coin, coins_remaining, map_size = 20.0, map_edge = 10.0):
         self.shader = shader
         self.model_matrix = model_matrix
         self.map_size = map_size
@@ -14,6 +14,7 @@ class Level:
         #Coins
         self.x_coin = x_coin
         self.z_coin = z_coin
+        self.coins_remaining = coins_remaining
         self.num_of_translations = len(self.x_translations)
         self.scale = [1.0, 1.0, 1.0]
         self.angle = 0
@@ -35,7 +36,7 @@ class Level:
         # Draw 5 coins
 
         self.shader.set_material_diffuse(1.0, 0.84, 0)
-        for i in range(5):
+        for i in range(self.coins_remaining):
             self.model_matrix.push_matrix()
             
             self.model_matrix.add_translation(self.x_coin[i], 0.5, self.z_coin[i])
