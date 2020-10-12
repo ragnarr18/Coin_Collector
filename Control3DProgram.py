@@ -80,7 +80,7 @@ class GraphicsProgram3D:
 
         for i in range(self.coins_remaining - 1):
             if self.character.position.x < self.x_coin[i] + 0.5 and self.character.position.x > self.x_coin[i] - 0.5 and self.character.position.z < self.z_coin[i] + 0.5 and self.character.position.z > self.z_coin[i] - 0.5:
-                print("gotit")
+                print( str(self.coins_remaining - 1) + " coins remaining!")
                 self.coins_remaining -= 1
                 self.x_coin.remove(self.x_coin[i])
                 self.z_coin.remove(self.z_coin[i])
@@ -93,7 +93,11 @@ class GraphicsProgram3D:
             pygame.quit()
             quit()
         
-
+        # Lose if white man gets you (within 0.5 away from you) 
+        if self.character.position.x < self.slender.position.x + 0.5 and self.character.position.x > self.slender.position.x - 0.5 and self.character.position.z < self.slender.position.z + 0.5 and self.character.position.z > self.slender.position.z -0.5:
+            print("You lost with " + str(self.coins_remaining - 1) + " coins left to collect!")
+            pygame.quit()
+            quit()
 
         if self.W_key_down:
             x = self.view_matrix.eye.x
