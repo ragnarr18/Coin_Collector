@@ -19,6 +19,17 @@ class Collition_detection:
         n = self.temp_char_pos.x - self.curr_x_pos # er x positive eða negative
         m = self.temp_char_pos.z - self.curr_z_pos # er z positive eða negative
 
+        # Horn leyfa manni ekki að fara út af vellinum
+        if self.temp_char_pos.x - self.cs < 0 and self.temp_char_pos.z - self.cs < 0:
+            return "3"
+        if self.temp_char_pos.x - self.cs < 0 and self.temp_char_pos.z + self.cs > 10:
+            return "3"
+        if self.temp_char_pos.x + self.cs > 10 and self.temp_char_pos.z - self.cs < 0:
+            return "3"
+        if self.temp_char_pos.x + self.cs > 10 and self.temp_char_pos.z + self.cs > 10:
+            return "3"
+
+        # Veggir halda manni inni í mazeinu
         if self.temp_char_pos.x - self.cs < 0:
             return "1"
         if self.temp_char_pos.x + self.cs > 10:
