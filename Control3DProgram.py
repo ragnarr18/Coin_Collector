@@ -7,15 +7,14 @@ import sys
 import time
 
 from First_Person import *
-from Shaders import *
 from levels.Base import Base
 from levels.Level1 import Level
+from Shaders import *
 from Matrices import *
-from Character import *
 from Mini_Map import *
 from Slender import *
 from Collition_detection import *
-from threading import Timer
+
 class GraphicsProgram3D:
     def __init__(self):
         pygame.init() 
